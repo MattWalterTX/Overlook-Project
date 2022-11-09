@@ -4,11 +4,87 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Overlook Project</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
+  <header>
+    <div class="title-area">
+      <img class='turing-logo' src="./images/turing-logo.png" alt="Turing Logo">
+      <h1 class="site-title">The Grand Overlook Hotel</h1>
+    </div>
+    <nav>
+      <button id="home-button" class="top-button">Home</button>
+      <button id="gallery-button" class="top-button">Gallery</button>
+      <button id="about-button" class="top-button">About Us</button>
+    </nav>
+  </header>
+  <main>
+
+    <!-- <section class="login"></section> -->
+      <!-- onload viewable, other views hidden -->
+      <!-- keep branch w/ NO login for live testing -->
+
+    <section id="home-view" class="view home-view hidden">
+      <section class="home-container">
+        <div class="text-general greeting-area">
+          <h2 id="greeting" class="greeting">Welcome Back ${Username}!</h1>
+          <h3 id="reward" class="greeting">You have spent ${totalSpent} with us already. Spend over $2,000.00 with us for a complimentary nights stay!</h3>
+        </div>
+        <div class="text-general bookings-header-container">
+          <h2 class="user-bookings-header">Book a Room</h2>
+        </div>
+        <ul id="all-bookings-grid" class="bookings-grid">
+        </ul>
+        <br>
+      </section>
+    
+
+      <section class="booked-nights-view">
+        <section class="booked-container">
+          <div class="text-general booked-header-container">
+            <h2 class="booked-header">Your Booked Nights</h2>
+          </div>
+          <ul id="fave-card-grid" class="card-grid">
+          </ul>
+          <br>
+        </section>
+      </section>
+<!-- end of user view section -->
+    </section> 
+
+    <section id="gallery-view" class="view gallery-view hidden">
+      <section class="gallery-container">
+        <div class="text-general gallery-header-container">
+          <h2 class="gallery-header">Gallery</h2>
+        </div>
+        <div class="gallery-image-conatiner">
+          <img class="large-gallery-pic" src="./images/communal-study.png" alt="Communal Study">
+          <br>
+          <img class="gallery-pic" src="./images/gold-room-entry.png" alt="Gold Room Entry">
+          <img class="gallery-pic" src="./images/bar.png" alt="Bar">
+          <br>
+          <img class="large-gallery-pic" src="./images/elevators.png" alt="Elevators">
+          <br>
+          <img class="gallery-pic" src="./images/gold-room1.png" alt="Gold Room">
+          <img class="gallery-pic" src="./images/communal-study2.png" alt="Communal Study alternate view">
+          <br>
+          <img class="large-gallery-pic" src="./images/hall.png" alt="Hallway">
+          <br>
+          <img class="gallery-pic" src="./images/room.png" alt="Room">
+          <img class="gallery-pic" src="./images/suite-bathroom.png" alt="Suite Bathroom">
+        </div>
+      </section>
+      <!-- end of gallery view section -->
+    </section>
+
+    <section id="about-view" class="text-general about-view hidden">
+      <h2>About Us</h2>
+      <article>Everyone here at the Grand Overlook Hotel prides themselves on their customer service. We have been taking care of the luxury stay needs of the area for over 100 years. Many of our staff are generational workers who love our area so much they can not stay away. Enjoy the views from our large and welcoming communal study and work area with its wonderful views, warm hearths and natural lighting. Try out our sprawling hedge maze or enjoy some skiing. Treat yourself to our wonderful kitchen staffed with extraordinary chefs from across the globe. Relax in you room or just spend time exploring the vast hotel. Don't forget to check out the events hosted in our signature ballroom, the Gold Room. Please come join us for a great time. We hope that you never want to leave!</article>
+      <img class="staff-pic" src="./images/overlook-staff.png" alt="Our Staff">
+      <!-- end of about us section -->
+    </section>
+
+  </main>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
 
