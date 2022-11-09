@@ -1,3 +1,118 @@
+/* Color Pallette
+ #335c67, #fff3b0, #e09f3e, #9e2a2b, #540b0e*/
+ 
+ * {
+  margin: 0px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+ }
+
+.text-general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ }
+
 body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  background: radial-gradient(circle, #e09f3e, #9e2a2b);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background: radial-gradient(circle, #fff3b0, #e09f3e);
+  align-items: center;
+  background-color: #fff3b0;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  margin-bottom: 2vh;
+  border: 10px double #9e2a2b;
+}
+
+main {
+  padding: 5%;
+}
+
+.turing-logo {
+  height: 4vw;
+  width: 4vw;
+  margin-right: 1.3vw;
+}
+
+.title-area {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 5vw;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  width: 40%;
+  height: 2.5vw;
+  margin-right: 5vw;
+}
+
+.top-button {
+  border: none;
+  font-style: italic;
+  font-size: 2vw;
+  border: 2px;
+    border-style: solid;
+    border-radius: 1vw;
+    border-color: #E99B3D;
+    font-style: italic;
+    font-size: 1.1vw;
+}
+
+.top-button:hover {
+  cursor: pointer;
+  color: #E99B3D;
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none!important;
+}
+
+.home-view{
+
+}
+
+
+
+.gallery-image-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.gallery-view {
+
+}
+
+.about-view {
+  
+}
+
+.large-gallery-pic {
+  height: 45vh;
+  width: 90vw;
+  max-height: 420px;
+  max-width: 850px;
+  padding: 2%;
+}
+
+.gallery-pic {
+height: 27VH;
+width: 42vw;
+max-height: 175px;
+max-width: 325px;
+padding: 2%;
+}
+
+.staff-pic {
+  padding-top: 5%;
+  width: 80vw;
 }
