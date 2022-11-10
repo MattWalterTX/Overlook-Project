@@ -60,6 +60,7 @@ const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const greeting = document.querySelector('#greeting');
+const reward = document.querySelector('#reward');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -71,6 +72,7 @@ aboutButton.addEventListener('click', showAbout);
 function loadUser() {
   currentUser.myBookings(currentBookings)
   loadGreeting();
+  loadRewards();
   renderBookings();
 };
 
@@ -95,8 +97,13 @@ function showAbout() {
 
 // HELPERS
 function loadGreeting() {
-  greeting.innerHTML = `Welcome Back ${currentUser.name}!`
-}
+  greeting.innerHTML = `Welcome Back ${currentUser.name}!`;
+};
+
+function loadRewards() {
+  console.log
+  reward.innerHTML = `You have spent $${currentUser.totalCosts(currentRooms)} with this year. Spend over $10,000.00 with us for a complimentary 5 night stay!`;
+};
 
 function renderBookings() {
   bookingsGrid.innerHTML = '';
