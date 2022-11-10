@@ -27,22 +27,26 @@ describe("Customer", () => {
     expect(customer2.name).to.equal('Danny Torrence');
   });
 
-  it('should be able to return a list of bookings', () => {
-    expect(customer1.showBookings(bookingData)).to.deep.equal([
+  it('should be able to store a list of their bookings', () => {
+    customer1.myBookings(bookingData);
+    customer2.myBookings(bookingData);
+    expect(customer1.bookings).to.deep.equal([
       { "id": "5fwrgu4i7k55hl6sz", "userID": 1, "date": "2022/04/22", "roomNumber": 1 },
       { "id": "5fwrgu4i7k55hl6t5", "userID": 1, "date": "2022/01/24", "roomNumber": 4,}
     ]);
-    expect(customer2.showBookings(bookingData)).to.deep.equal([
+    expect(customer2.bookings).to.deep.equal([
       { "id": "5fwrgu4i7k55hl6t8", "userID": 2, "date": "2022/02/05", "roomNumber": 3 },
       { "id": "5fwrgu4i7k55hl6t9", "userID": 2, "date": "2023/12/14", "roomNumber": 6,}
     ]);
   });
 
-  it('should be able to provide a total cost for all bookings', () => {
-    expect(customer1.totalCosts(bookingData, roomData)).to.equal(787.84);
-    expect(customer2.totalCosts(bookingData, roomData)).to.equal(888.16);
+  it('should be able to provide a total cost for all their bookings', () => {
+    customer1.myBookings(bookingData);
+    customer2.myBookings(bookingData);
+    customer1.totalCosts(roomData);
+    customer2.totalCosts(roomData);
+    expect(customer1.totalCosts(roomData)).to.equal(787.84);
+    expect(customer2.totalCosts(roomData)).to.equal(888.16);
   });
-
-  // it()
 
 })
