@@ -49,4 +49,22 @@ describe("Customer", () => {
     expect(customer2.totalCosts(roomData)).to.equal(888.16);
   });
 
-})
+  it('should be able to filter available rooms by date', () => {
+    expect(customer1.checkRooms(bookingData, "2022/04/22")).to.deep.equal([
+      { "id": "5fwrgu4i7k55hl6sz", "userID": 1, "date": "2022/04/22", "roomNumber": 1 },
+    ]);
+    expect(customer2.checkRooms(bookingData, "2023/12/14")).to.deep.equal([
+      { "id": "5fwrgu4i7k55hl6t9", "userID": 2, "date": "2023/12/14", "roomNumber": 6,}
+    ]);
+  });
+
+  it('should return a message if no rooms are available', () => {
+    expect(customer1.checkRooms(bookingData, "2022/04/30")).to.equal(
+      "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
+    );
+    expect(customer2.checkRooms(bookingData, "2023/12/15")).to.equal(
+      "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
+    )
+  })
+
+});

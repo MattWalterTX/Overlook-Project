@@ -58,7 +58,9 @@ const aboutView = document.querySelector('#about-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
+const roomButton = document.querySelector('.room-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
+const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 
@@ -67,6 +69,7 @@ window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
+roomButton.addEventListener('click', showRoomDetails)
 
 // FUNCTIONS
 function loadUser() {
@@ -95,6 +98,10 @@ function showAbout() {
   aboutView.classList.remove('hidden');
 };
 
+function showRoomDetails(id) {
+
+}
+
 // HELPERS
 function loadGreeting() {
   greeting.innerHTML = `Welcome Back ${currentUser.name}!`;
@@ -111,15 +118,22 @@ function renderBookings() {
     currentUser.bookings.map(booking => 
     `<li class="booking-card">
     <div class="booking-info">
-      <h3 id="" class="date">${booking.date}</h3>
-      <h3 id="" class="date">${booking.roomNumber}</h3>
+      <h3 id="" class="info">${booking.date}</h3>
+      <h3 id="" class="info">Room Number ${booking.roomNumber}</h3>
     </div>
+    <button id="${booking.id}" class="room-button info">View Room Details</button>
     <div>
-      <h3 id="" class="date">Confirmation ${booking.id}</h3>
+      <h3 id="" class="info">Conf# ${booking.id}</h3>
     </div>
   </li>`)
   .join('');
 };
+
+function roomsByDate(date) {
+  availableGrid.innerHTML = '';
+  availableGrid.innerHTML = 
+    
+}
 
 
 

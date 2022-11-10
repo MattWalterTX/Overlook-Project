@@ -80,7 +80,57 @@ nav {
 
 }
 
+.card-grid {
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: transparent;
+  padding-left: 0;
+  height: 100vw;
+}
 
+.booking-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  list-style: none;
+  flex-basis: 30.1%;
+  max-height: 20vw;
+  height: 10vh;
+  margin: 1.5vw;
+  font-size: 12px;
+  color: #353431;
+  text-align: center;
+  max-width: 26vw;
+  border-style: solid;
+  border-color: #540b0e;
+  border-width: .5vw;
+  border-radius: 1vw;
+  pointer-events: none;
+}
+
+.info {
+  padding: 2px;
+}
+
+.room-button  {
+  border: 2px;
+  background-color: #e09f3e;
+  border-style: solid;
+  border-radius: 1vw;
+  border-color: #9e2a2b;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.room-button:hover  {
+  cursor: pointer;
+  color: #E99B3D;
+  border-color: #353431;
+}
 
 .gallery-image-container {
   display: flex;
