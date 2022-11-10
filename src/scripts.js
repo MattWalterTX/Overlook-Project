@@ -69,6 +69,7 @@ aboutButton.addEventListener('click', showAbout);
 
 // FUNCTIONS
 function loadUser() {
+  currentUser.myBookings(currentBookings)
   loadGreeting();
   renderBookings();
 };
@@ -98,32 +99,20 @@ function loadGreeting() {
 }
 
 function renderBookings() {
-  const data = currentUser.showBookings(currentBookings);
-  console.log(data)
-  // bookingsGrid.innerHTML = '';
-  // // console.log(sort[0].roomNumber)
-  // bookingsGrid.innerHTML = 
-  //   data.map(booking => {
-  //   `<li class="booking-card">
-  //   <div class="booking-info">
-  //     <h3 id="" class="date">${booking.date}</h3>
-  //     <h3 id="" class="date">${booking.roomNumber}</h3>
-  //   </div>
-  //   <div class="tag-container">Room Details
-  //     <ul class="room-info">
-
-  //     </ul>
-  //   </div>
-  //   <div>
-  //     <h3 id="" class="date">Confirmation ${booking.id}</h3>
-  //   </div>
-  // </li>`})
-  // .join('');
+  bookingsGrid.innerHTML = '';
+  bookingsGrid.innerHTML = 
+    currentUser.bookings.map(booking => 
+    `<li class="booking-card">
+    <div class="booking-info">
+      <h3 id="" class="date">${booking.date}</h3>
+      <h3 id="" class="date">${booking.roomNumber}</h3>
+    </div>
+    <div>
+      <h3 id="" class="date">Confirmation ${booking.id}</h3>
+    </div>
+  </li>`)
+  .join('');
 };
 
-      //     ${thisRoom.roomType}
-      //     ${thisRoom.bedSize}
-      //     ${thisRoom.numBeds}
-      //     ${thisRoom.bidet}
 
-      // <h3 id="" class="">Cost per Night: ${thisRoom.costPerNight}
+
