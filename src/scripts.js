@@ -50,3 +50,28 @@ function showAbout() {
   galleryView.classList.add('hidden');
   aboutView.classList.remove('hidden');
 };
+
+function renderBookings(data) {
+  bookingsGrid.innerHTML = '';
+  bookingsGrid.innerHTML = 
+  data.map(booking => `<li class="booking-card">
+    <div class="booking-info">
+      <h3 id="" class="date">${booking.date}</h3>
+      <h3 id="" class="date">${booking.roomNumber}</h3>
+    </div>
+    <div class="tag-container">Room Details
+      <ul class="room-info">
+          ${room[booking.roomNumber].roomType}
+          ${room[booking.roomNumber].bedSize}
+          ${room[booking.roomNumber].numBeds}
+          ${room[booking.roomNumber].bidet}
+      </ul>
+    </div>
+    <div>
+      <h3 id="" class="">Cost per Night: ${room[booking.roomNumber].costPerNight}
+      <h3 id="" class="date">Confirmation ${booking.id}</h3>
+    </div>
+    <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
+  </li>`
+  ).join('');
+};
