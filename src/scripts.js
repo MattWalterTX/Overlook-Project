@@ -1,6 +1,3 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
 // IMPORTS
 import './css/styles.css';
 import './images/turing-logo.png';
@@ -14,9 +11,45 @@ import './images/gold-room-entry.png';
 import './images/hall.png';
 import './images/room.png';
 import './images/suite-bathroom.png';
+import Customer from './class/customer';
+import Room from "../src/class/room.js";
+import Booking from "../src/class/booking.js";
+import {
+  getCustomerData,
+  getBookingData,
+  getRoomData
+} from './apiCalls';
+
+// remove after connecting api
+import bookingData from "../src/data/booking-data.js";
+import roomData from "../src/data/room-data.js";
+import customerData from "../src/data/customer-data.js";
 
 // GLOBAL VARIABLES
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms;
 
+// API
+function instantiateData(data) {
+  Promise.all([getCustomerData(), getBookingData(), getRoomData()]).then(
+    (data) => {
+      customersData = data[0].customers;
+      bookingsData = data[1].bookings;
+      roomsData = data[2].rooms;
+      currentUser = new Customer (
+        customersData[Math.floor(Math.random() * customersData.length)]
+      );
+      currentBookings = bookingsData.map(booking => {
+        const newBooking = new Booking(booking);
+        return newBooking
+      });
+      currentRooms = roomsData.map(room => {
+        const newRoom = new Room(room);
+        return newRoom
+      });
+      loadUser();
+    }
+  );
+};
 
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
@@ -25,14 +58,22 @@ const aboutView = document.querySelector('#about-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
+const bookingsGrid = document.querySelector('#bookings-grid');
+const greeting = document.querySelector('#greeting');
 
 // EVENT LISTENERS
+window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
 
+// FUNCTIONS
+function loadUser() {
+  loadGreeting();
+  renderBookings();
+};
 
-// Views
+// View
 function showHome() {
   galleryView.classList.add('hidden');
   aboutView.classList.add('hidden');
@@ -51,27 +92,38 @@ function showAbout() {
   aboutView.classList.remove('hidden');
 };
 
-function renderBookings(data) {
-  bookingsGrid.innerHTML = '';
-  bookingsGrid.innerHTML = 
-  data.map(booking => `<li class="booking-card">
-    <div class="booking-info">
-      <h3 id="" class="date">${booking.date}</h3>
-      <h3 id="" class="date">${booking.roomNumber}</h3>
-    </div>
-    <div class="tag-container">Room Details
-      <ul class="room-info">
-          ${room[booking.roomNumber].roomType}
-          ${room[booking.roomNumber].bedSize}
-          ${room[booking.roomNumber].numBeds}
-          ${room[booking.roomNumber].bidet}
-      </ul>
-    </div>
-    <div>
-      <h3 id="" class="">Cost per Night: ${room[booking.roomNumber].costPerNight}
-      <h3 id="" class="date">Confirmation ${booking.id}</h3>
-    </div>
-    <button class="remove-button" id="${recipe.id}">Remove from Favorites</button>
-  </li>`
-  ).join('');
+// HELPERS
+function loadGreeting() {
+  greeting.innerHTML = `Welcome Back ${currentUser.name}!`
+}
+
+function renderBookings() {
+  const data = currentUser.showBookings(currentBookings);
+  console.log(data)
+  // bookingsGrid.innerHTML = '';
+  // // console.log(sort[0].roomNumber)
+  // bookingsGrid.innerHTML = 
+  //   data.map(booking => {
+  //   `<li class="booking-card">
+  //   <div class="booking-info">
+  //     <h3 id="" class="date">${booking.date}</h3>
+  //     <h3 id="" class="date">${booking.roomNumber}</h3>
+  //   </div>
+  //   <div class="tag-container">Room Details
+  //     <ul class="room-info">
+
+  //     </ul>
+  //   </div>
+  //   <div>
+  //     <h3 id="" class="date">Confirmation ${booking.id}</h3>
+  //   </div>
+  // </li>`})
+  // .join('');
 };
+
+      //     ${thisRoom.roomType}
+      //     ${thisRoom.bedSize}
+      //     ${thisRoom.numBeds}
+      //     ${thisRoom.bidet}
+
+      // <h3 id="" class="">Cost per Night: ${thisRoom.costPerNight}

@@ -2,14 +2,15 @@ class Customer {
   constructor(details) {
     this.id = details.id;
     this.name = details.name;
+    this.bookings = [];
   };
 
-  showBookings(data) {
-    return data.filter(booking => booking.userID === this.id);
+  myBookings(data) {
+    this.bookings = data.filter(booking => booking.userID === this.id)
   };
   
-  totalCosts(bookingData, roomData) {
-    const info = this.showBookings(bookingData).map(booking => {
+  totalCosts(roomData) {
+    const info = this.bookings.map(booking => {
       const room = roomData.find(room => room.number === booking.roomNumber);
       return room
     });
