@@ -59,6 +59,7 @@ const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const roomButton = document.querySelector('.room-button');
+const roomButton = document.querySelector('.room-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
@@ -131,7 +132,7 @@ function renderBookings() {
 
 function roomsByDate(date) {
   availableGrid.innerHTML = '';
-  // availableGrid.innerHTML = 
+  availableGrid.innerHTML = 
     
 }
 

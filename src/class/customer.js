@@ -20,7 +20,17 @@ class Customer {
     }, 0);
     return Number(total.toFixed(2))
   };
+
+  checkRooms(data, date) {
+    const check = data.filter(booking => booking.date === date);
+    console.log(check)
+    if(check.length === 0) {
+      return "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
+    } else {
+      return check
+    };
+  };
   
-}
+};
 
 export default Customer
