@@ -33,9 +33,21 @@
         <div class="text-general bookings-header-container">
           <h2 class="user-bookings-header">Book a Room</h2>
         </div>
-        <ul id="all-bookings-grid" class="bookings-grid">
-        </ul>
-        <br>
+        <form id="form" class="form">
+          <div>PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY</div>
+          <div class="">
+            <input type="date" id="start" name="form-date" min="2021-09-01" max="2024-12-31">
+          </div>
+      </section>
+
+      <section class="available-rooms-view">
+        <section class="available-container">
+          <div class="text-general available-header-container">
+            <h2 class="available-header">Available Rooms</h2>
+          </div>
+          <ul id="available-grid" class="card-grid">
+          </ul>
+        </section>
       </section>
     
 
@@ -46,7 +58,6 @@
           </div>
           <ul id="bookings-grid" class="card-grid">
           </ul>
-          <br>
         </section>
       </section>
 <!-- end of user view section -->
