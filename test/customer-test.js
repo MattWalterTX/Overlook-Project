@@ -32,11 +32,11 @@ describe("Customer", () => {
     customer2.myBookings(bookingData);
     expect(customer1.bookings).to.deep.equal([
       { "id": "5fwrgu4i7k55hl6sz", "userID": 1, "date": "2022/04/22", "roomNumber": 1 },
-      { "id": "5fwrgu4i7k55hl6t5", "userID": 1, "date": "2022/01/24", "roomNumber": 4,}
+      { "id": "5fwrgu4i7k55hl6t5", "userID": 1, "date": "2022/01/24", "roomNumber": 1,}
     ]);
     expect(customer2.bookings).to.deep.equal([
       { "id": "5fwrgu4i7k55hl6t8", "userID": 2, "date": "2022/02/05", "roomNumber": 3 },
-      { "id": "5fwrgu4i7k55hl6t9", "userID": 2, "date": "2023/12/14", "roomNumber": 6,}
+      { "id": "5fwrgu4i7k55hl6t9", "userID": 2, "date": "2023/12/14", "roomNumber": 3,}
     ]);
   });
 
@@ -45,17 +45,13 @@ describe("Customer", () => {
     customer2.myBookings(bookingData);
     customer1.totalCosts(roomData);
     customer2.totalCosts(roomData);
-    expect(customer1.totalCosts(roomData)).to.equal(787.84);
-    expect(customer2.totalCosts(roomData)).to.equal(888.16);
+    expect(customer1.totalCosts(roomData)).to.equal(716.8);
+    expect(customer2.totalCosts(roomData)).to.equal(982.28);
   });
 
   it('should be able to filter available rooms by date', () => {
-    expect(customer1.checkRooms(bookingData, "2022/04/22")).to.deep.equal([
-      { "id": "5fwrgu4i7k55hl6sz", "userID": 1, "date": "2022/04/22", "roomNumber": 1 },
-    ]);
-    expect(customer2.checkRooms(bookingData, "2023/12/14")).to.deep.equal([
-      { "id": "5fwrgu4i7k55hl6t9", "userID": 2, "date": "2023/12/14", "roomNumber": 6,}
-    ]);
+    expect(customer1.checkRooms(bookingData, "2022/04/22")).to.deep.equal(bookingData.splice(1,5));
+    expect(customer2.checkRooms(bookingData, "2023/12/14")).to.deep.equal(bookingData.splice(0, 5));
   });
 
   it('should return a message if no rooms are available', () => {
@@ -64,7 +60,7 @@ describe("Customer", () => {
     );
     expect(customer2.checkRooms(bookingData, "2023/12/15")).to.equal(
       "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
-    )
-  })
+    );
+  });
 
 });
