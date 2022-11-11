@@ -26,7 +26,7 @@ import roomData from "../src/data/room-data.js";
 import customerData from "../src/data/customer-data.js";
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate;
 
 // API
 function instantiateData(data) {
@@ -63,13 +63,20 @@ const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
+const calendar = document.querySelector('#start');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
-roomButton.addEventListener('click', showRoomDetails)
+// roomButton.addEventListener('click', showRoomDetails);
+calendar.addEventListener('change', (e) => {
+  e.preventDefault();
+  selectedDate = e.target.value.split('-').join('/')
+  // console.log(typeof selectedDate)
+  roomsByDate(currentBookings, selectedDate)
+})
 
 // FUNCTIONS
 function loadUser() {
@@ -129,9 +136,12 @@ function renderBookings() {
   .join('');
 };
 
-function roomsByDate(date) {
-  availableGrid.innerHTML = '';
-  availableGrid.innerHTML = 
+function roomsByDate(data, date) {
+  const today = currentUser.checkRooms(data, date)
+  
+  console.log(date, today)
+  // availableGrid.innerHTML = '';
+  // availableGrid.innerHTML = 
     
 }
 

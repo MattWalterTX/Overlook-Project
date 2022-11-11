@@ -22,8 +22,7 @@ class Customer {
   };
 
   checkRooms(data, date) {
-    const check = data.filter(booking => booking.date === date);
-    console.log(check)
+    const check = data.filter(booking => booking.date !== date);
     if(check.length === 0) {
       return "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
     } else {
