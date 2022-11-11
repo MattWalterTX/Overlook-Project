@@ -20,11 +20,6 @@ import {
   getRoomData
 } from './apiCalls';
 
-// remove after connecting api
-import bookingData from "../src/data/booking-data.js";
-import roomData from "../src/data/room-data.js";
-import customerData from "../src/data/customer-data.js";
-
 // GLOBAL VARIABLES
 let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate;
 
@@ -105,10 +100,6 @@ function showAbout() {
   aboutView.classList.remove('hidden');
 };
 
-function showRoomDetails(id) {
-
-}
-
 // HELPERS
 function loadGreeting() {
   greeting.innerHTML = `Welcome Back ${currentUser.name}!`;
@@ -137,13 +128,13 @@ function renderBookings() {
 };
 
 function roomsByDate(data, date) {
-  const today = currentUser.checkRooms(data, date)
+  const today = currentUser.checkRooms(data, date);
   
   console.log(date, today)
   // availableGrid.innerHTML = '';
   // availableGrid.innerHTML = 
     
-}
+};
 
 
 
