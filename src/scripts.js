@@ -59,18 +59,25 @@ const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const roomButton = document.querySelector('.room-button');
-const roomButton = document.querySelector('.room-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
+const form = document.querySelector('#form');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
-roomButton.addEventListener('click', showRoomDetails)
+// roomButton.addEventListener('click', showRoomDetails);
+form.addEventListener('change', (e) => {
+  e.preventDefault();
+  // e.target.form.date.value = e.target.value;
+    // const formData = new FormData(e.target);
+
+  console.log(e.target)
+})
 
 // FUNCTIONS
 function loadUser() {
@@ -130,9 +137,11 @@ function renderBookings() {
   .join('');
 };
 
-function roomsByDate(date) {
-  availableGrid.innerHTML = '';
-  availableGrid.innerHTML = 
+function roomsByDate(event) {
+  // let  = curr
+  // currentUser.checkRooms(event.target.id)
+  // availableGrid.innerHTML = '';
+  // availableGrid.innerHTML = 
     
 }
 
