@@ -24,21 +24,21 @@ module.exports = [
     "id": "5fwrgu4i7k55hl6t5",
     "userID": 1,
     "date": "2022/01/24",
-    "roomNumber": 4,
+    "roomNumber": 1,
     
   },
   {
     "id": "5fwrgu4i7k55hl6ti",
     "userID": 6,
     "date": "2022/01/22",
-    "roomNumber": 5,
+    "roomNumber": 2,
     
   },
   {
     "id": "5fwrgu4i7k55hl6t9",
     "userID": 2,
     "date": "2023/12/14",
-    "roomNumber": 6,
+    "roomNumber": 3,
     
   },
 
