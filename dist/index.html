@@ -20,9 +20,19 @@
   </header>
   <main>
 
-    <!-- <section class="login"></section> -->
-      <!-- onload viewable, other views hidden -->
-      <!-- keep branch w/ NO login for live testing -->
+    <section id="login" class="login">
+      <form id="" class="login-form">
+        <p>Please Enter Credentials</p>
+        <div class="form-field">
+          <input type="text" placeholder="Enter Username" name="uName" required id="u-name">
+        </div>
+        <div class="form-field">
+          <input type="text" placeholder="Enter Password" name="pWord" required id="p-word">
+        </div>
+        <button type="submit" id="submit-button">Login</button>
+        <div id="login-error"></div>
+      </form>
+    </section>
 
     <section id="home-view" class="view home-view hidden">
       <section class="home-container">
@@ -34,8 +44,8 @@
           <h2 class="user-bookings-header">Book a Room</h2>
         </div>
         <form id="avail-form" class="avail-form">
-          <div>PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY</div>
-          <div class="">
+          <div class="form-field">PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY</div>
+          <div class="form-field">
             <input type="date" id="start" name="form-date" min="2021-09-01" max="2024-12-31">
           </div>
         </form>
@@ -46,18 +56,21 @@
           <div class="text-general available-header-container">
             <h2 class="available-header">Available Rooms</h2>
             <form id="radio-form" class="radio-form">
-              <input type="radio" id="rS" name="filter" value="residential suite" >
-              <label for="rS">Residential Suite</label>
-              <input type="radio" id="s" name="filter" value="suite">
-              <label for="s">Suite</label>
-              <input type="radio" id="sR" name="filter" value="single room">
-              <label for="sR">Single Room</label>
-              <input type="radio" id="jS" name="filter" value="junior suite">
-              <label for="jS">Junior Suite</label>
+              <div>
+                <input type="radio" id="rS" name="filter" value="residential suite" >
+                <label for="rS">Residential Suite</label>
+                <input type="radio" id="s" name="filter" value="suite">
+                <label for="s">Suite</label>
+              <div>
+                <input type="radio" id="sR" name="filter" value="single room">
+                <label for="sR">Single Room</label>
+                <input type="radio" id="jS" name="filter" value="junior suite">
+                <label for="jS">Junior Suite</label>
+              </div>
             </form>
           </div>
           <ul id="available-grid" class="card-grid">
-            <li class="room-card">
+            <li class="room-card hidden">
               <div class="room-info">
                 <div>
                   <h3 id="" class="info">Room Number : 1</h3>
@@ -70,7 +83,7 @@
                   <h3 id="" class="info">Nightly Cost : comp</h3>
                 </div>
               </div>
-              <button id="book-room" class="room-button info">Book Room</button>
+              <button id="book-button" class="room-button info">Book Room</button>
             </li>
           </ul>
         </section>

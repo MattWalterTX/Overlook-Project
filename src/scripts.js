@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today, todaysRooms;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today;
 
 // API
 function instantiateData(data) {
@@ -42,18 +42,19 @@ function instantiateData(data) {
         return newRoom
       });
       loadUser();
-    }
-  );
+  });
 };
 
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
 const aboutView = document.querySelector('#about-view');
+const loginView = document.querySelector('#login-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
-const roomButton = document.querySelector('#room-button');
+const submitButton = document.querySelector('#submit-button');
+// const roomButton = document.querySelector('#room-button');
 const bookButton = document.querySelector('#book-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
@@ -65,6 +66,9 @@ const rS = document.querySelector('#rS');
 const s = document.querySelector('#s');
 const sR = document.querySelector('#sR');
 const jS = document.querySelector('#jS');
+const uName = document.querySelector('#u-name');
+const pWord = document.querySelector('#p-word');
+const loginError = document.querySelector('#login-error');
 
 
 
@@ -83,7 +87,17 @@ rS.addEventListener('change', alterList);
 s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
-bookButton.addEventListener('click', bookRoom);
+bookButton.addEventListener('click', (e) => {
+  // e.preventDefault();
+  console.log('selected room: ', e.target.id)
+  const selectedRoom = e.target;
+  bookRoom(selectedRoom)
+});
+submitButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  // console.log(uName.value, pWord.value)
+  loginUser(e)
+});
 
 
 // FUNCTIONS
@@ -94,23 +108,25 @@ function loadUser() {
   renderBookings();
 };
 
-// View
-function showHome() {
+function toggleHidden(view) {
+  // loginView
+  homeView.classList.add('hidden');
   galleryView.classList.add('hidden');
   aboutView.classList.add('hidden');
-  homeView.classList.remove('hidden');
+  view.classList.remove('hidden')
+
+}
+
+function showHome() {
+  toggleHidden(homeView);
 };
 
 function showGallery() {
-  homeView.classList.add('hidden');
-  aboutView.classList.add('hidden');
-  galleryView.classList.remove('hidden');
+  toggleHidden(galleryView);
 };
 
 function showAbout() {
-  homeView.classList.add('hidden');
-  galleryView.classList.add('hidden');
-  aboutView.classList.remove('hidden');
+  toggleHidden(aboutView);
 };
 
 // HELPERS
@@ -148,7 +164,7 @@ function renderBookings() {
 
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
-  todaysRooms = today;
+  const todaysRooms = today;
   if(today.length > 0) {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
@@ -182,14 +198,19 @@ function roomsByDate(books, roms, date) {
   };
 };
 
-function bookRoom(event) {
-  event.preventDefault();
-  console.log(event)
+function bookRoom(room) {
+  // event.preventDefault();
+  console.log('room: ', room)
 }
 
 function roomsByType(data) {
+  if(data !== 'residential suite' || 'suite' || 'single room' || 'junior suite') {
+    availableGrid.innerHTML = '';
+    availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
+    return 'error'
+  } else {
   const filterSelector = today.filter(room => room.roomType === data);
-  console.log('filter selector', filterSelector)
+  // console.log('filter selector', filterSelector)
   availableGrid.innerHTML = '';
   availableGrid.innerHTML = 
   filterSelector.map(room => 
@@ -206,16 +227,46 @@ function roomsByType(data) {
           <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
         </div>
       </div>
-      <button id="room-button" class="room-button info">Book Room</button>
+      <button id="book-button" class="room-button info">Book Room</button>
   </li>`)
-  .join('');
+  .join(''); }
 };
 
 function alterList(event) {
   event.preventDefault();
-  console.log(event.target.id)
-  filterSelector = event.target.value;
+  // console.log(event.target.id)
+  const filterSelector = event.target.value;
   roomsByType(filterSelector);
 };
 
+function loginUser(event) {
+  // e.preventDefault()
+  // console.log('target: ', event.target)
+  console.log(uName.value, pWord.value)
 
+  checkCredentials(event);
+  unlockViews();
+}
+
+function checkCredentials(event) {
+  if(uName.value.includes('customer') && pWord.value === 'overlook2021') {
+    const X = parseInt(uName.value.split('customer')[1])
+    if(X < 1 || X > customersData.length) {
+      loginError.innerHTML = '';
+      loginError.innerHTML = `<p>Invalid Username or Password</p>`;
+    } else {
+      loginError.innerHTML = '';
+    const user = customersData.find(user => user.id === X)
+    currentUser = new Customer(user)
+    console.log(currentUser)
+    }
+  } else {
+    loginError.innerHTML = '';
+    loginError.innerHTML = `<p>Invalid Username or Password</p>`;
+  }
+  loadUser()
+}
+
+function unlockViews() {
+
+}
