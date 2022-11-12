@@ -45,6 +45,17 @@
         <section class="available-container">
           <div class="text-general available-header-container">
             <h2 class="available-header">Available Rooms</h2>
+            <div>
+              <label>Filter By Type:
+                <input list="room-types" name="filter" id="filter" /></label>
+                <datalist id="room-types">
+                  <option value="residential suite">
+                  <option value="suite">
+                  <option value="single room">
+                  <option value="junior suite">
+                </datalist>
+                        
+            </div>
           </div>
           <ul id="available-grid" class="card-grid">
           </ul>
@@ -71,19 +82,20 @@
         </div>
         <div class="gallery-image-conatiner">
           <img class="large-gallery-pic" src="./images/communal-study.png" alt="Communal Study">
-          <br>
-          <img class="gallery-pic" src="./images/gold-room-entry.png" alt="Gold Room Entry">
-          <img class="gallery-pic" src="./images/bar.png" alt="Bar">
-          <br>
+          <div class="small-pics">
+            <img class="gallery-pic" src="./images/gold-room-entry.png" alt="Gold Room Entry">
+            <img class="gallery-pic" src="./images/bar.png" alt="Bar">
+          </div>
           <img class="large-gallery-pic" src="./images/elevators.png" alt="Elevators">
-          <br>
-          <img class="gallery-pic" src="./images/gold-room1.png" alt="Gold Room">
-          <img class="gallery-pic" src="./images/communal-study2.png" alt="Communal Study alternate view">
-          <br>
+          <div class="small-pics">
+            <img class="gallery-pic" src="./images/gold-room1.png" alt="Gold Room">
+            <img class="gallery-pic" src="./images/communal-study2.png" alt="Communal Study alternate view">
+          </div>
           <img class="large-gallery-pic" src="./images/hall.png" alt="Hallway">
-          <br>
-          <img class="gallery-pic" src="./images/room.png" alt="Room">
-          <img class="gallery-pic" src="./images/suite-bathroom.png" alt="Suite Bathroom">
+          <div class="small-pics">
+            <img class="gallery-pic" src="./images/room.png" alt="Room">
+            <img class="gallery-pic" src="./images/suite-bathroom.png" alt="Suite Bathroom">
+          </div>
         </div>
       </section>
       <!-- end of gallery view section -->
