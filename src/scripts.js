@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, todaysRooms;
 
 // API
 function instantiateData(data) {
@@ -59,7 +59,7 @@ const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 const calendar = document.querySelector('#start');
-const typesDropDown = document.querySelector('#room-types');
+const typesDropDown = document.querySelector('#filter');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -73,13 +73,33 @@ calendar.addEventListener('change', (e) => {
   // console.log(typeof selectedDate)
   roomsByDate(currentBookings, currentRooms, selectedDate)
 })
+
+
+
+
+
+
+
+
+
 typesDropDown.addEventListener('change', (e) => {
   e.preventDefault();
-  // selectedType = e.target.value.split('-').join('/')
-  console.log(e)
-  // console.log(typeof selectedDate)
-  // roomsByType(currentBookings, currentRooms, selectedDate)
+  console.log(e.target.value)
+  filterSelector = e.target.value;
+  console.log('filter selector: ', filterSelector)
+  roomsByType(filterSelector)
 })
+
+
+
+
+
+
+
+
+
+
+
 
 // FUNCTIONS
 function loadUser() {
@@ -137,6 +157,7 @@ function renderBookings() {
 
 function roomsByDate(books, roms, date) {
   const today = currentUser.checkRooms(books, roms, date);
+  todaysRooms = today;
   
   console.log('date ', date, 'today', today)
   if(today.length > 0) {
@@ -173,9 +194,9 @@ function roomsByDate(books, roms, date) {
   };
 };
 
-function filterRooms() {
-
+function roomsByType(data) {
+  console.log(todaysRooms[0].roomType)
+  console.log('data', data)
+  const filterSelector = today.filter(room => room.roomType === data)
+  console.log('filter selector', filterSelector)
 };
-
-
-
