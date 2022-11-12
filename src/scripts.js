@@ -21,7 +21,8 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, today, valid;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, 
+    currentRooms, selectedDate, today, valid;
 
 // API
 function instantiateData(data) {
@@ -192,7 +193,7 @@ function roomsByDate(books, roms, date) {
       `<div class="message">
         <p>There are no availabilties  on this date - Please enter a new date</p>
         <span> We apologize for the inconvenience! When you do find the room of your dreams, please call in to our front desk! 
-          Let them know your first choice was already booked and our Maître d'Hôtel will off you his personal apologies as well as a verbal confirmation for your stay. 
+          Let them know your first choice of stay was already booked and our Maître d'Hôtel will off you his personal apologies as well as a verbal confirmation for your stay. 
         <br>This confirmation will also provide a comp of your party's dinner on the night of your arrival.</span>
         <p>Compliments of Dick Hallorann</p>
       </div>`
@@ -206,11 +207,9 @@ function bookRoom(room) {
 function roomsByType(data) {
   console.log(data)
   if(availableGrid.innerHTML === '' || typeof availableGrid.innerHTML === 'string') {
-    // availableGrid.innerHTML = '';
     availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
-  // availableGrid.innerHTML = '';
   availableGrid.innerHTML = 
   filterSelector.map(room => 
   `<li class="room-card">
