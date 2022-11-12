@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,16 +45,15 @@
         <section class="available-container">
           <div class="text-general available-header-container">
             <h2 class="available-header">Available Rooms</h2>
-            <div>
-              <label>Filter By Type:
-                <input list="room-types" name="filter" id="filter" /></label>
-                <datalist id="room-types">
-                  <option value="residential suite">
-                  <option value="suite">
-                  <option value="single room">
-                  <option value="junior suite">
-                </datalist>
-                        
+            <div id = radio>
+              <input type="radio" id="rS" name="filter" value="residential suite" >
+              <label for="rS">Residential Suite</label><br>
+              <input type="radio" id="s" name="filter" value="suite">
+              <label for="s">Suite</label><br>
+              <input type="radio" id="sR" name="filter" value="single room">
+              <label for="sR">Single Room</label><br>
+              <input type="radio" id="jS" name="filter" value="junior suite">
+              <label for="jS">Junior Suite</label><br>
             </div>
           </div>
           <ul id="available-grid" class="card-grid">

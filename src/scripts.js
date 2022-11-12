@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, todaysRooms;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today, todaysRooms;
 
 // API
 function instantiateData(data) {
@@ -59,7 +59,11 @@ const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 const calendar = document.querySelector('#start');
-const typesDropDown = document.querySelector('#filter');
+// const typesDropDown = document.querySelector('#filter');
+const rS = document.querySelector('#rS');
+const s = document.querySelector('#s');
+const sR = document.querySelector('#sR');
+const jS = document.querySelector('#jS');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -70,35 +74,12 @@ aboutButton.addEventListener('click', showAbout);
 calendar.addEventListener('change', (e) => {
   e.preventDefault();
   selectedDate = e.target.value.split('-').join('/')
-  // console.log(typeof selectedDate)
   roomsByDate(currentBookings, currentRooms, selectedDate)
-})
-
-
-
-
-
-
-
-
-
-typesDropDown.addEventListener('change', (e) => {
-  e.preventDefault();
-  console.log(e.target.value)
-  filterSelector = e.target.value;
-  console.log('filter selector: ', filterSelector)
-  roomsByType(filterSelector)
-})
-
-
-
-
-
-
-
-
-
-
+});
+rS.addEventListener('click', alterList);
+s.addEventListener('click', alterList);
+sR.addEventListener('click', alterList);
+jS.addEventListener('click', alterList);
 
 
 // FUNCTIONS
@@ -134,8 +115,10 @@ function loadGreeting() {
 };
 
 function loadRewards() {
-  console.log
-  reward.innerHTML = `You have spent $${currentUser.totalCosts(currentRooms)} with this year. Spend over $10,000.00 with us for a complimentary 5 night stay!`;
+  if(currentUser.totalCosts(currentRooms) < 10000) {
+    reward.innerHTML = `<p>You have spent $${currentUser.totalCosts(currentRooms)} with this year. 
+      <br>Spend over $10,000.00 with us for a complimentary 5 night stay!</p>`;
+  }
 };
 
 function renderBookings() {
@@ -156,10 +139,8 @@ function renderBookings() {
 };
 
 function roomsByDate(books, roms, date) {
-  const today = currentUser.checkRooms(books, roms, date);
+  today = currentUser.checkRooms(books, roms, date);
   todaysRooms = today;
-  
-  console.log('date ', date, 'today', today)
   if(today.length > 0) {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
@@ -180,7 +161,6 @@ function roomsByDate(books, roms, date) {
         <button id="" class="room-button info">Book Room</button>
     </li>`)
   .join('');
-    
   } else {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
@@ -195,8 +175,31 @@ function roomsByDate(books, roms, date) {
 };
 
 function roomsByType(data) {
-  console.log(todaysRooms[0].roomType)
-  console.log('data', data)
-  const filterSelector = today.filter(room => room.roomType === data)
+  const filterSelector = today.filter(room => room.roomType === data);
   console.log('filter selector', filterSelector)
+  availableGrid.innerHTML = '';
+  availableGrid.innerHTML = 
+  filterSelector.map(room => 
+  `<li class="room-card">
+      <div class="room-info">
+        <div>
+          <h3 id="" class="info">Room Number : ${room.number}</h3>
+          <h3 id="" class="info">Room Type : ${room.roomType}</h3>
+          <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
+        </div>
+        <div>
+          <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
+          <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
+          <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
+        </div>
+      </div>
+      <button id="" class="room-button info">Book Room</button>
+  </li>`)
+  .join('');
+};
+
+function alterList(event) {
+  event.preventDefault();
+  filterSelector = event.target.value;
+  roomsByType(filterSelector);
 };
