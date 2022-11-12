@@ -22,5 +22,5 @@ module.exports = [
     "bedSize": "king",
     "numBeds": 1,
     "costPerNight": 491.14
-  }
+  },
 ]

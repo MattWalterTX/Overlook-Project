@@ -70,7 +70,7 @@ calendar.addEventListener('change', (e) => {
   e.preventDefault();
   selectedDate = e.target.value.split('-').join('/')
   // console.log(typeof selectedDate)
-  roomsByDate(currentBookings, selectedDate)
+  roomsByDate(currentBookings, currentRooms, selectedDate)
 })
 
 // FUNCTIONS
@@ -127,13 +127,35 @@ function renderBookings() {
   .join('');
 };
 
-function roomsByDate(data, date) {
-  const today = currentUser.checkRooms(data, date);
+function roomsByDate(books, roms, date) {
+  const today = currentUser.checkRooms(books, roms, date);
   
-  console.log(date, today)
-  // availableGrid.innerHTML = '';
-  // availableGrid.innerHTML = 
+  console.log('date ', date, 'today', today)
+  if(today.length > 0) {
+    availableGrid.innerHTML = '';
+    availableGrid.innerHTML = 
+    today.map(room => 
+    `<li class="room-card">
+        <div class="room-info">
+          <div>
+            <h3 id="" class="info">Room Number : ${room.number}</h3>
+            <h3 id="" class="info">Room Type : ${room.roomType}</h3>
+            <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
+          </div>
+          <div>
+            <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
+            <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
+            <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
+          </div>
+        </div>
+        <button id="" class="room-button info">Book Room</button>
+    </li>`)
+  .join('');
     
+  } else {
+    availableGrid.innerHTML = '';
+    availableGrid.innerHTML = `<h3>There are no room available on this date. We apologize for the inconvenience - Please enter a new date</h3>`
+  }
 };
 
 
