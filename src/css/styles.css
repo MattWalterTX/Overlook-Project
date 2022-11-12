@@ -98,7 +98,7 @@ span {
     font-style: italic;
 }
 
-form {
+.avail-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
