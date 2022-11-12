@@ -42,14 +42,14 @@ function instantiateData(data) {
         return newRoom
       });
       loadUser();
-    }
-  );
+  });
 };
 
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
 const aboutView = document.querySelector('#about-view');
+const loginView = document.querySelector('#login-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
@@ -100,22 +100,25 @@ function loadUser() {
 };
 
 // View
-function showHome() {
+function toggleHidden(view) {
+  // loginView
+  homeView.classList.add('hidden');
   galleryView.classList.add('hidden');
   aboutView.classList.add('hidden');
-  homeView.classList.remove('hidden');
+  view.classList.remove('hidden')
+
+}
+
+function showHome() {
+  toggleHidden(homeView);
 };
 
 function showGallery() {
-  homeView.classList.add('hidden');
-  aboutView.classList.add('hidden');
-  galleryView.classList.remove('hidden');
+  toggleHidden(galleryView);
 };
 
 function showAbout() {
-  homeView.classList.add('hidden');
-  galleryView.classList.add('hidden');
-  aboutView.classList.remove('hidden');
+  toggleHidden(aboutView);
 };
 
 // HELPERS
@@ -193,6 +196,11 @@ function bookRoom(room) {
 }
 
 function roomsByType(data) {
+  if(data !== 'residential suite' || 'suite' || 'single room' || 'junior suite') {
+    availableGrid.innerHTML = '';
+    availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
+    return 'error'
+  } else {
   const filterSelector = today.filter(room => room.roomType === data);
   // console.log('filter selector', filterSelector)
   availableGrid.innerHTML = '';
@@ -213,7 +221,7 @@ function roomsByType(data) {
       </div>
       <button id="book-button" class="room-button info">Book Room</button>
   </li>`)
-  .join('');
+  .join(''); }
 };
 
 function alterList(event) {
