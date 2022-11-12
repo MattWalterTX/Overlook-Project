@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today, valid;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, today, valid;
 
 // API
 function instantiateData(data) {
@@ -42,6 +42,7 @@ function instantiateData(data) {
         return newRoom
       });
       loadUser();
+      availableGrid.innerHTML = '';
   });
 };
 
@@ -203,13 +204,13 @@ function bookRoom(room) {
 }
 
 function roomsByType(data) {
-  if(data !== 'residential suite' || 'suite' || 'single room' || 'junior suite') {
-    availableGrid.innerHTML = '';
+  console.log(data)
+  if(availableGrid.innerHTML === '' || typeof availableGrid.innerHTML === 'string') {
+    // availableGrid.innerHTML = '';
     availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
-    return 'error'
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
-  availableGrid.innerHTML = '';
+  // availableGrid.innerHTML = '';
   availableGrid.innerHTML = 
   filterSelector.map(room => 
   `<li class="room-card">
@@ -232,8 +233,8 @@ function roomsByType(data) {
 
 function alterList(event) {
   event.preventDefault();
-  const filterSelector = event.target.value;
-  roomsByType(filterSelector);
+  const filter = event.target.value;
+  roomsByType(filter);
 };
 
 function loginUser(event) {
