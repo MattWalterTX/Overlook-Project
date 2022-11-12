@@ -52,6 +52,7 @@ const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
 const aboutView = document.querySelector('#about-view');
 const loginView = document.querySelector('#login-view');
+const adminView = document.querySelector('#admin-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
@@ -92,7 +93,7 @@ s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
 bookButton.addEventListener('click', (e) => {
-  // e.preventDefault();
+  e.preventDefault();
   console.log('selected room: ', e.target.id)
   const selectedRoom = e.target;
   bookRoom(selectedRoom)
@@ -116,8 +117,10 @@ function toggleHidden(view) {
   homeView.classList.add('hidden');
   galleryView.classList.add('hidden');
   aboutView.classList.add('hidden');
+  if(view !== 'admin') {
+  
   view.classList.remove('hidden')
-
+  }
 }
 
 function showHome(event) {
@@ -167,7 +170,8 @@ function renderBookings() {
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
   const todaysRooms = today;
-  if(today.length > 0) {
+  console.log('today: ', today)
+  if(today.length > 0 || typeof today === 'string') {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
     today.map(room => 
@@ -205,8 +209,7 @@ function bookRoom(room) {
 }
 
 function roomsByType(data) {
-  console.log(data)
-  if(availableGrid.innerHTML === '' || typeof availableGrid.innerHTML === 'string') {
+  if(availableGrid.innerHTML === '') {
     availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
@@ -231,7 +234,6 @@ function roomsByType(data) {
 };
 
 function alterList(event) {
-  event.preventDefault();
   const filter = event.target.value;
   roomsByType(filter);
 };
@@ -239,11 +241,17 @@ function alterList(event) {
 function loginUser(event) {
   valid = false
   checkCredentials(event);
-  if(valid) {
-    unlockViews();
+  if(valid && currentUser.name !== 'manager') {
+    unlockNav();
     showHome();
     login.classList.add('hidden');
   }
+  if(valid && currentUser.name === 'manager') {
+    homeView.classList.add('hidden');
+
+    showAdminPage();
+    login.classList.add('hidden');
+  } 
 };
 
 function checkCredentials(event) {
@@ -257,15 +265,19 @@ function checkCredentials(event) {
     const user = customersData.find(user => user.id === X);
     currentUser = new Customer(user);
     valid = true;
+    loadUser();
     };
-  } else {
+  } else if(uName.value === 'manager' && pWord.value === 'overlook2021') {
+    loginError.innerHTML = '';
+    currentUser = new Customer({id: 0, name: 'manager'});
+    valid = true;
+  }  else {
     loginError.innerHTML = '';
     loginError.innerHTML = `<p>Invalid Username or Password</p>`;
   };
-  loadUser();
 }
 
-function unlockViews() {
+function unlockNav() {
   homeButton.classList.remove('hidden');
   galleryButton.classList.remove('hidden');
   aboutButton.classList.remove('hidden');
@@ -275,3 +287,10 @@ function unlockViews() {
 function reloadPage() {
   location.reload();
 };
+
+function showAdminPage() {
+  adminView.classList.remove('hidden');
+  logoutButton.classList.remove('hidden');
+
+  // homeButton.setAttribute('disabled');
+}
