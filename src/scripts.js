@@ -59,6 +59,7 @@ const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 const calendar = document.querySelector('#start');
+const typesDropDown = document.querySelector('#room-types');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -71,6 +72,13 @@ calendar.addEventListener('change', (e) => {
   selectedDate = e.target.value.split('-').join('/')
   // console.log(typeof selectedDate)
   roomsByDate(currentBookings, currentRooms, selectedDate)
+})
+typesDropDown.addEventListener('change', (e) => {
+  e.preventDefault();
+  // selectedType = e.target.value.split('-').join('/')
+  console.log(e)
+  // console.log(typeof selectedDate)
+  // roomsByType(currentBookings, currentRooms, selectedDate)
 })
 
 // FUNCTIONS
@@ -154,8 +162,19 @@ function roomsByDate(books, roms, date) {
     
   } else {
     availableGrid.innerHTML = '';
-    availableGrid.innerHTML = `<h3>There are no room available on this date. We apologize for the inconvenience - Please enter a new date</h3>`
-  }
+    availableGrid.innerHTML = 
+      `<div class="message">
+        <p>There are no availabilties  on this date - Please enter a new date</p>
+        <span> We apologize for the inconvenience! When you do find the room of your dreams, please call in to our front desk! 
+          Let them know your first choice was already booked and our Maître d'Hôtel will off you his personal apologies as well as a verbal confirmation for your stay. 
+        <br>This confirmation will also provide a comp of your party's dinner on the night of your arrival.</span>
+        <p>Compliments of Dick Hallorann</p>
+      </div>`
+  };
+};
+
+function filterRooms() {
+
 };
 
 
