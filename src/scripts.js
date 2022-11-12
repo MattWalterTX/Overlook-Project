@@ -53,6 +53,7 @@ const loginView = document.querySelector('#login-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
+const submitButton = document.querySelector('#submit-button');
 // const roomButton = document.querySelector('#room-button');
 const bookButton = document.querySelector('#book-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
@@ -65,6 +66,9 @@ const rS = document.querySelector('#rS');
 const s = document.querySelector('#s');
 const sR = document.querySelector('#sR');
 const jS = document.querySelector('#jS');
+const uName = document.querySelector('#u-name');
+const pWord = document.querySelector('#p-word');
+const loginError = document.querySelector('#login-error');
 
 
 
@@ -89,6 +93,11 @@ bookButton.addEventListener('click', (e) => {
   const selectedRoom = e.target;
   bookRoom(selectedRoom)
 });
+submitButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  // console.log(uName.value, pWord.value)
+  loginUser(e)
+});
 
 
 // FUNCTIONS
@@ -99,7 +108,6 @@ function loadUser() {
   renderBookings();
 };
 
-// View
 function toggleHidden(view) {
   // loginView
   homeView.classList.add('hidden');
@@ -231,4 +239,34 @@ function alterList(event) {
   roomsByType(filterSelector);
 };
 
+function loginUser(event) {
+  // e.preventDefault()
+  // console.log('target: ', event.target)
+  console.log(uName.value, pWord.value)
 
+  checkCredentials(event);
+  unlockViews();
+}
+
+function checkCredentials(event) {
+  if(uName.value.includes('customer') && pWord.value === 'overlook2021') {
+    const X = parseInt(uName.value.split('customer')[1])
+    if(X < 1 || X > customersData.length) {
+      loginError.innerHTML = '';
+      loginError.innerHTML = `<p>Invalid Username or Password</p>`;
+    } else {
+      loginError.innerHTML = '';
+    const user = customersData.find(user => user.id === X)
+    currentUser = new Customer(user)
+    console.log(currentUser)
+    }
+  } else {
+    loginError.innerHTML = '';
+    loginError.innerHTML = `<p>Invalid Username or Password</p>`;
+  }
+  loadUser()
+}
+
+function unlockViews() {
+
+}
