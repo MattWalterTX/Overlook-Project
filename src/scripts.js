@@ -53,7 +53,8 @@ const aboutView = document.querySelector('#about-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
-const roomButton = document.querySelector('.room-button');
+const roomButton = document.querySelector('#room-button');
+const bookButton = document.querySelector('#book-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
@@ -64,6 +65,8 @@ const rS = document.querySelector('#rS');
 const s = document.querySelector('#s');
 const sR = document.querySelector('#sR');
 const jS = document.querySelector('#jS');
+
+
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -76,10 +79,11 @@ calendar.addEventListener('change', (e) => {
   selectedDate = e.target.value.split('-').join('/')
   roomsByDate(currentBookings, currentRooms, selectedDate)
 });
-rS.addEventListener('click', alterList);
-s.addEventListener('click', alterList);
-sR.addEventListener('click', alterList);
-jS.addEventListener('click', alterList);
+rS.addEventListener('change', alterList);
+s.addEventListener('change', alterList);
+sR.addEventListener('change', alterList);
+jS.addEventListener('change', alterList);
+bookButton.addEventListener('click', bookRoom);
 
 
 // FUNCTIONS
@@ -138,6 +142,10 @@ function renderBookings() {
   .join('');
 };
 
+// function showRoomDetails() {
+  
+// }
+
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
   todaysRooms = today;
@@ -158,7 +166,7 @@ function roomsByDate(books, roms, date) {
             <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
           </div>
         </div>
-        <button id="" class="room-button info">Book Room</button>
+        <button id="book-room" class="room-button info">Book Room</button>
     </li>`)
   .join('');
   } else {
@@ -173,6 +181,11 @@ function roomsByDate(books, roms, date) {
       </div>`
   };
 };
+
+function bookRoom(event) {
+  event.preventDefault();
+  console.log(event)
+}
 
 function roomsByType(data) {
   const filterSelector = today.filter(room => room.roomType === data);
@@ -193,13 +206,16 @@ function roomsByType(data) {
           <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
         </div>
       </div>
-      <button id="" class="room-button info">Book Room</button>
+      <button id="room-button" class="room-button info">Book Room</button>
   </li>`)
   .join('');
 };
 
 function alterList(event) {
   event.preventDefault();
+  console.log(event.target.id)
   filterSelector = event.target.value;
   roomsByType(filterSelector);
 };
+
+
