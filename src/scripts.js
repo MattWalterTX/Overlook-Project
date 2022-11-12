@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector;
 
 // API
 function instantiateData(data) {
@@ -59,7 +59,7 @@ const availableGrid = document.querySelector('#available-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 const calendar = document.querySelector('#start');
-const typesDropDown = document.querySelector('#room-types');
+const typesDropDown = document.querySelector('#filter');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -75,9 +75,9 @@ calendar.addEventListener('change', (e) => {
 })
 typesDropDown.addEventListener('change', (e) => {
   e.preventDefault();
-  // selectedType = e.target.value.split('-').join('/')
-  console.log(e)
-  // console.log(typeof selectedDate)
+  console.log(e.target.value)
+  filterSelector = e.target.value;
+  console.log('filter selector: ', filterSelector)
   // roomsByType(currentBookings, currentRooms, selectedDate)
 })
 
