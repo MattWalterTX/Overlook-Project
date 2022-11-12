@@ -76,9 +76,9 @@ nav {
   display: none!important;
 }
 
-.home-view{
+/* .home-view{
 
-}
+} */
 
 form {
   display: flex;
@@ -168,29 +168,34 @@ form {
 
 .gallery-image-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
-.gallery-view {
+.small-pics {
+  display: flex;
+  justify-content: center;
+}
+
+/* .gallery-view {
 
 }
 
 .about-view {
   
-}
+} */
 
 .large-gallery-pic {
-  height: 45vh;
+  height: 60vh;
   width: 90vw;
-  max-height: 420px;
-  max-width: 850px;
+  /* max-height: 420px;
+  max-width: 850px; */
   padding: 2%;
 }
 
 .gallery-pic {
-height: 27VH;
-width: 42vw;
+height: 30VH;
+width: 45vw;
 max-height: 175px;
 max-width: 325px;
 padding: 2%;
