@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today, todaysRooms;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today;
 
 // API
 function instantiateData(data) {
@@ -53,7 +53,7 @@ const aboutView = document.querySelector('#about-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
-const roomButton = document.querySelector('#room-button');
+// const roomButton = document.querySelector('#room-button');
 const bookButton = document.querySelector('#book-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
@@ -83,7 +83,12 @@ rS.addEventListener('change', alterList);
 s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
-bookButton.addEventListener('click', bookRoom);
+bookButton.addEventListener('click', (e) => {
+  // e.preventDefault();
+  console.log('selected room: ', e.target.id)
+  const selectedRoom = e.target;
+  bookRoom(selectedRoom)
+});
 
 
 // FUNCTIONS
@@ -148,7 +153,7 @@ function renderBookings() {
 
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
-  todaysRooms = today;
+  const todaysRooms = today;
   if(today.length > 0) {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
@@ -182,14 +187,14 @@ function roomsByDate(books, roms, date) {
   };
 };
 
-function bookRoom(event) {
-  event.preventDefault();
-  console.log(event)
+function bookRoom(room) {
+  // event.preventDefault();
+  console.log('room: ', room)
 }
 
 function roomsByType(data) {
   const filterSelector = today.filter(room => room.roomType === data);
-  console.log('filter selector', filterSelector)
+  // console.log('filter selector', filterSelector)
   availableGrid.innerHTML = '';
   availableGrid.innerHTML = 
   filterSelector.map(room => 
@@ -206,15 +211,15 @@ function roomsByType(data) {
           <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
         </div>
       </div>
-      <button id="room-button" class="room-button info">Book Room</button>
+      <button id="book-button" class="room-button info">Book Room</button>
   </li>`)
   .join('');
 };
 
 function alterList(event) {
   event.preventDefault();
-  console.log(event.target.id)
-  filterSelector = event.target.value;
+  // console.log(event.target.id)
+  const filterSelector = event.target.value;
   roomsByType(filterSelector);
 };
 
