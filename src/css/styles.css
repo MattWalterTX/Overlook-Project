@@ -80,12 +80,37 @@ nav {
 
 } */
 
+p {
+  align-content: center;
+  font-size: 30px;
+  color: #353431;
+  text-align: center;
+  font-weight: bolder;
+  font-style: italic;
+}
+
+span {
+    align-content: center;
+    font-size: 18px;
+    color: #335c67;
+    text-align: center;
+    font-weight: bolder;
+    font-style: italic;
+}
+
 form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding:1.5%;
+}
+
+.message {
+  background-color: #E99B3D;
+  padding: 1em;
+  filter: brightness(80%);
+  margin: 1em;
 }
 
 .card-grid {
