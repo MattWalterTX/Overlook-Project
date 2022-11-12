@@ -21,7 +21,7 @@ import {
 } from './apiCalls';
 
 // GLOBAL VARIABLES
-let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, filterSelector, today;
+let customersData, roomsData, bookingsData, currentUser, currentBookings, currentRooms, selectedDate, today, valid;
 
 // API
 function instantiateData(data) {
@@ -42,6 +42,7 @@ function instantiateData(data) {
         return newRoom
       });
       loadUser();
+      availableGrid.innerHTML = '';
   });
 };
 
@@ -53,6 +54,7 @@ const loginView = document.querySelector('#login-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
+const logoutButton = document.querySelector('#logout-button');
 const submitButton = document.querySelector('#submit-button');
 // const roomButton = document.querySelector('#room-button');
 const bookButton = document.querySelector('#book-button');
@@ -77,6 +79,7 @@ window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
+logoutButton.addEventListener('click', reloadPage)
 // roomButton.addEventListener('click', showRoomDetails);
 calendar.addEventListener('change', (e) => {
   e.preventDefault();
@@ -95,7 +98,6 @@ bookButton.addEventListener('click', (e) => {
 });
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
-  // console.log(uName.value, pWord.value)
   loginUser(e)
 });
 
@@ -117,7 +119,7 @@ function toggleHidden(view) {
 
 }
 
-function showHome() {
+function showHome(event) {
   toggleHidden(homeView);
 };
 
@@ -129,7 +131,6 @@ function showAbout() {
   toggleHidden(aboutView);
 };
 
-// HELPERS
 function loadGreeting() {
   greeting.innerHTML = `Welcome Back ${currentUser.name}!`;
 };
@@ -199,19 +200,17 @@ function roomsByDate(books, roms, date) {
 };
 
 function bookRoom(room) {
-  // event.preventDefault();
   console.log('room: ', room)
 }
 
 function roomsByType(data) {
-  if(data !== 'residential suite' || 'suite' || 'single room' || 'junior suite') {
-    availableGrid.innerHTML = '';
+  console.log(data)
+  if(availableGrid.innerHTML === '' || typeof availableGrid.innerHTML === 'string') {
+    // availableGrid.innerHTML = '';
     availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
-    return 'error'
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
-  // console.log('filter selector', filterSelector)
-  availableGrid.innerHTML = '';
+  // availableGrid.innerHTML = '';
   availableGrid.innerHTML = 
   filterSelector.map(room => 
   `<li class="room-card">
@@ -234,39 +233,46 @@ function roomsByType(data) {
 
 function alterList(event) {
   event.preventDefault();
-  // console.log(event.target.id)
-  const filterSelector = event.target.value;
-  roomsByType(filterSelector);
+  const filter = event.target.value;
+  roomsByType(filter);
 };
 
 function loginUser(event) {
-  // e.preventDefault()
-  // console.log('target: ', event.target)
-  console.log(uName.value, pWord.value)
-
+  valid = false
   checkCredentials(event);
-  unlockViews();
-}
+  if(valid) {
+    unlockViews();
+    showHome();
+    login.classList.add('hidden');
+  }
+};
 
 function checkCredentials(event) {
   if(uName.value.includes('customer') && pWord.value === 'overlook2021') {
-    const X = parseInt(uName.value.split('customer')[1])
+    const X = parseInt(uName.value.split('customer')[1]);
     if(X < 1 || X > customersData.length) {
       loginError.innerHTML = '';
       loginError.innerHTML = `<p>Invalid Username or Password</p>`;
     } else {
       loginError.innerHTML = '';
-    const user = customersData.find(user => user.id === X)
-    currentUser = new Customer(user)
-    console.log(currentUser)
-    }
+    const user = customersData.find(user => user.id === X);
+    currentUser = new Customer(user);
+    valid = true;
+    };
   } else {
     loginError.innerHTML = '';
     loginError.innerHTML = `<p>Invalid Username or Password</p>`;
-  }
-  loadUser()
+  };
+  loadUser();
 }
 
 function unlockViews() {
+  homeButton.classList.remove('hidden');
+  galleryButton.classList.remove('hidden');
+  aboutButton.classList.remove('hidden');
+  logoutButton.classList.remove('hidden');
+};
 
-}
+function reloadPage() {
+  location.reload();
+};
