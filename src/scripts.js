@@ -14,6 +14,7 @@ import './images/suite-bathroom.png';
 import Customer from './class/customer';
 import Room from "../src/class/room.js";
 import Booking from "../src/class/booking.js";
+import Manager from '../src/class/manager.js'
 import {
   getCustomerData,
   getBookingData,
@@ -25,7 +26,7 @@ let customersData, roomsData, bookingsData, currentUser, currentBookings,
     currentRooms, selectedDate, today, valid;
 
 // API
-function instantiateData(data) {
+function instantiateData() {
   Promise.all([getCustomerData(), getBookingData(), getRoomData()]).then(
     (data) => {
       customersData = data[0].customers;
@@ -269,7 +270,7 @@ function checkCredentials(event) {
     };
   } else if(uName.value === 'manager' && pWord.value === 'overlook2021') {
     loginError.innerHTML = '';
-    currentUser = new Customer({id: 0, name: 'manager'});
+    currentUser = new Manager();
     valid = true;
   }  else {
     loginError.innerHTML = '';
