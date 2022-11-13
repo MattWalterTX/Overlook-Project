@@ -3,16 +3,26 @@ class Manager {
     this.name = 'manager';
   };
 
-  availableRooms(bookings, date) {
-    return bookings.filter(booking => booking.date === date)
+  availableRooms(books, rooms, date) {
+    let available = rooms;
+    const check = books.filter(booking => booking.date === date)
+      .map(book => {return book.roomNumber});
+    const compare = check.map(num => rooms.find(room => room.number === num));
+    const remove = compare.forEach(r => {
+      available = rooms
+      const i = available.indexOf(r);
+      const x = available.splice(i, 1);
+      return available
+    });
+    return available
   };
 
   todaysRevenue(bookings, rooms, date) {
-    const books = this.availableRooms(bookings, date)
+    const booked = bookings.filter(booking => booking.date === date);
     const matches = [];
-    books.forEach(booking => {
-        let x = rooms.find(room => room.number === booking.roomNumber);
-        matches.push(x)
+    booked.forEach(booking => {
+      let x = rooms.find(room => room.number === booking.roomNumber);
+      matches.push(x)
     });
     const total = matches.reduce((acc, curr) => {
       acc += curr.costPerNight
@@ -22,9 +32,8 @@ class Manager {
   };
 
   percentOccupied(bookings, rooms, date) {
-    const books = this.availableRooms(bookings, date)
-    console.log([books.length / rooms.length])
-    return Math.floor(books.length / rooms.length * 100)
+    const booked = bookings.filter(booking => booking.date === date);
+    return Math.floor(booked.length / rooms.length * 100)
   };
 
 };
