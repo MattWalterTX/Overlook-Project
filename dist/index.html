@@ -47,9 +47,9 @@
           <h2 class="user-bookings-header">Book a Room</h2>
         </div>
         <form id="avail-form" class="avail-form">
-          <div class="form-field">PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY</div>
+          <div id="form-message" class="form-field">PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY</div>
           <div class="form-field">
-            <input type="date" id="start" name="form-date" min="2021-09-01" max="2024-12-31">
+            <input type="date" id="calendar" name="form-date" min="2021-09-01" max="2024-12-31">
           </div>
         </form>
       </section>
@@ -127,9 +127,14 @@
     </section>
     <section id="admin-view" class="view admin-view hidden">
       <section class="admin-container">
-        <div class="text-general greeting-area">
-          <h2 id="greeting" class="greeting">Welcome Back, Mr. Halloran</h1>
-            <h3 id="reward" class="greeting">add text here</h3>
+        <div class="text-general admin-message-area">
+          <h2 id="admin-greeting" class="admin-greeting">Welcome Back, Mr. Halloran</h1>
+            <div id="admin-info" class="admin-info">
+
+            </div>
+            <div class="admin-form-field">
+              <input type="date" id="admin-calendar" name="admin-form-date" value="2022-11-15" min="2021-09-01" max="2024-12-31">
+            </div>
         </div>
 
         <section class="total-bookings-view">

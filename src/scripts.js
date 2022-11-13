@@ -63,10 +63,12 @@ const submitButton = document.querySelector('#submit-button');
 const bookButton = document.querySelector('#book-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
+const totalBookingsGrid = document.querySelector('#total-bookings-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
-const calendar = document.querySelector('#start');
-// const typesDropDown = document.querySelector('#filter');
+const calendar = document.querySelector('#calendar');
+const adminCalendar = document.querySelector('#admin-calendar');
+const adminInfo = document.querySelector('#admin-info');
 const rS = document.querySelector('#rS');
 const s = document.querySelector('#s');
 const sR = document.querySelector('#sR');
@@ -74,6 +76,7 @@ const jS = document.querySelector('#jS');
 const uName = document.querySelector('#u-name');
 const pWord = document.querySelector('#p-word');
 const loginError = document.querySelector('#login-error');
+
 
 
 
@@ -103,6 +106,24 @@ submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   loginUser(e)
 });
+
+
+
+
+
+
+adminCalendar.addEventListener('change', (e) => {
+  e.preventDefault();
+  selectedDate = e.target.value.split('-').join('/')
+  renderTodaysBookings(currentBookings, currentRooms, selectedDate)
+});
+
+
+
+
+
+
+
 
 
 // FUNCTIONS
@@ -235,6 +256,7 @@ function roomsByType(data) {
 };
 
 function alterList(event) {
+  event.preventDefault()
   const filter = event.target.value;
   roomsByType(filter);
 };
@@ -249,7 +271,8 @@ function loginUser(event) {
   }
   if(valid && currentUser.name === 'manager') {
     homeView.classList.add('hidden');
-
+    renderTodaysBookings(currentBookings, currentRooms, '2022/11/15')
+    renderAdminMessage('2022-11-15')
     showAdminPage();
     login.classList.add('hidden');
   } 
@@ -276,7 +299,7 @@ function checkCredentials(event) {
     loginError.innerHTML = '';
     loginError.innerHTML = `<p>Invalid Username or Password</p>`;
   };
-}
+};
 
 function unlockNav() {
   homeButton.classList.remove('hidden');
@@ -292,6 +315,37 @@ function reloadPage() {
 function showAdminPage() {
   adminView.classList.remove('hidden');
   logoutButton.classList.remove('hidden');
+};
 
-  // homeButton.setAttribute('disabled');
+function renderAdminMessage(date) {
+  currentUser.todaysRevenue(currentBookings, currentRooms, date);
+  currentUser.percentOccupied(currentBookings, currentRooms, date);
+  adminInfo.innerHTML = '';
+  adminInfo.innerHTML = 
+  `<p>Please Select a Date to View Rooms</p>`
+  
+  
 }
+
+function renderTodaysBookings(books, rooms, date) {
+  const render = currentUser.availableRooms(books, rooms, date)
+  totalBookingsGrid.innerHTML = 
+  render.map(room => 
+  `<li class="room-card">
+      <div class="room-info">
+        <div>
+          <h3 id="" class="info">Room Number : ${room.number}</h3>
+          <h3 id="" class="info">Room Type : ${room.roomType}</h3>
+          <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
+        </div>
+        <div>
+          <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
+          <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
+          <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
+        </div>
+      </div>
+      <button id="book-button" class="room-button info">Book Room</button>
+  </li>`)
+  .join(''); 
+}
+

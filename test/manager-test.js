@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import bookingData from "../src/data/booking-data.js";
+import roomsData from "../src/data/room-data.js";
 import Customer from "../src/class/customer.js";
 import Room from "../src/class/room.js";
 import Booking from "../src/class/booking.js";
@@ -23,7 +24,7 @@ describe("Manager", () => {
     });
 
     it('should display available rooms for a specific date', () => {
-      expect(manager.availableRooms(bookingData, '2022/11/12')).to.deep.equal([]);
+      expect(manager.availableRooms(bookingData, roomsData, '2022/1/19')).to.deep.equal([room2, room3]);
     });
 
     it('should return total revenue by date', () => {
