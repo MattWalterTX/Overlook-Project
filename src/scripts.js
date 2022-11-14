@@ -1,6 +1,5 @@
 // IMPORTS
 import './css/styles.css';
-import './images/overlook-view.png'
 import './images/turing-logo.png';
 import './images/overlook-staff.png';
 import './images/bar.png';

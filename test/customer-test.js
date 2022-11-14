@@ -57,19 +57,4 @@ describe("Customer", () => {
     expect(customer1.checkRooms(bookingData, roomData, '2022/04/22')).to.deep.equal([room2, room3]);
   });
 
-  it.skip('should return a message if no rooms are available', () => {
-      // throws error
-          // 1) Customer
-          //        "before each" hook for "should return a message if no rooms are available":
-          //      TypeError: Cannot read properties of undefined (reading 'number')
-          //       at new Room (dist/webpack:/webpack-starter-kit/src/class/room.js:3:1)
-          //       at Context.<anonymous> (dist/webpack:/webpack-starter-kit/test/customer-test.js:17:1)
-          //       at processImmediate (node:internal/timers:466:21)
-
-
-    expect(customer1.checkRooms(fullBookingData, roomData, "2022/04/01")).to.equal(
-      "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
-    );
-  });
-
 });
