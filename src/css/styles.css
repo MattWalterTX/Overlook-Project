@@ -124,6 +124,7 @@ span {
   padding-left: 0;
   height: inherit;
   /* height: 100vw; */
+  z-index: -1;
 }
 
 .room-card {
@@ -145,6 +146,7 @@ span {
   border-width: .5vw;
   border-radius: 1vw;
   pointer-events: none;
+  z-index: 1;
 }
 
 .room-info {

@@ -1,5 +1,6 @@
 // IMPORTS
 import './css/styles.css';
+import './images/overlook-view.png'
 import './images/turing-logo.png';
 import './images/overlook-staff.png';
 import './images/bar.png';
@@ -48,6 +49,18 @@ function instantiateData() {
   });
 };
 
+function refreshRooms() {
+  getRoomData()
+    .then(data => {
+      console.log(data)
+      roomsData = data.rooms;
+      currentRooms = roomsData.map(room => {
+        const newRoom = new Room(room);
+        return newRoom
+      });
+    });
+};
+
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
@@ -60,7 +73,7 @@ const aboutButton = document.querySelector('#about-button');
 const logoutButton = document.querySelector('#logout-button');
 const submitButton = document.querySelector('#submit-button');
 // const roomButton = document.querySelector('#room-button');
-const bookButton = document.querySelector('#book-button');
+const bookButton = document.querySelector('#book-button.room-button.info');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const totalBookingsGrid = document.querySelector('#total-bookings-grid');
@@ -96,17 +109,17 @@ rS.addEventListener('change', alterList);
 s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
-bookButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  console.log('selected room: ', e.target.id)
-  const selectedRoom = e.target;
-  bookRoom(selectedRoom)
-});
+// bookButton.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   console.log('selected room: ', e)
+//   const selectedRoom = e.target;
+//   bookRoom(selectedRoom)
+// });
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   loginUser(e)
 });
-
+bookButton.addEventListener('click', doTheThing);
 
 
 
@@ -210,9 +223,10 @@ function roomsByDate(books, roms, date) {
             <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
           </div>
         </div>
-        <button id="book-room" class="room-button info">Book Room</button>
+        <button id="book-button" class="room-button info">Book Room</button>
     </li>`)
   .join('');
+  bookButton.addEventListener('click', doTheThing);
   } else {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
@@ -224,14 +238,19 @@ function roomsByDate(books, roms, date) {
         <p>Compliments of Dick Hallorann</p>
       </div>`
   };
+  refreshRooms()
 };
 
-function bookRoom(room) {
-  console.log('room: ', room)
+function doTheThing(event) {
+  console.log('the Thing')
 }
 
+// function bookRoom(room) {
+//   console.log('room: ', room)
+// }
+
 function roomsByType(data) {
-  if(availableGrid.innerHTML === '') {
+  if(availableGrid.innerHTML === '' || currentUser.name === 'manager') {
     availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
