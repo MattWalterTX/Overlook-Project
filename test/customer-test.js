@@ -1,10 +1,8 @@
 import { expect } from "chai";
 import bookingData from "../src/data/booking-data.js";
-// import fullBookingData from "../src/data/full-booking-data.js";
 import roomData from "../src/data/room-data.js";
 import Customer from "../src/class/customer.js";
 import Room from "../src/class/room.js";
-import Booking from "../src/class/booking.js";
 
 describe("Customer", () => {
   let customer1, customer2, room1, room2, room3;
@@ -15,7 +13,7 @@ describe("Customer", () => {
     room1 = new Room(roomData[0]);
     room2 = new Room(roomData[1]);
     room3 = new Room(roomData[2]);
-    });
+  });
 
   it('should create an instance of Customer', () => {
     expect(customer1).to.be.an.instanceOf(Customer);
