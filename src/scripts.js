@@ -72,7 +72,9 @@ function postBooking(data) {
     }
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    formMessage.innerHTML += `<br><p>${data.message}</p>`
+  })
   .catch(err => console.log(err));
 };
 
@@ -100,7 +102,6 @@ function updateData() {
 const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
 const aboutView = document.querySelector('#about-view');
-const loginView = document.querySelector('#login-view');
 const adminView = document.querySelector('#admin-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
@@ -122,6 +123,7 @@ const jS = document.querySelector('#jS');
 const uName = document.querySelector('#u-name');
 const pWord = document.querySelector('#p-word');
 const loginError = document.querySelector('#login-error');
+const formMessage = document.querySelector('#form-message');
 
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
@@ -209,7 +211,6 @@ function renderBookings() {
   </li>`)
   .join('');
   const roomButton = document.querySelectorAll('.room-button');
-  roomButton.forEach(button => button.addEventListener('click', displayRoomInfo));
 };
 
 function roomsByDate(books, roms, date) {
