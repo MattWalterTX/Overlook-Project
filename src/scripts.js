@@ -14,7 +14,6 @@ import './images/suite-bathroom.png';
 import Customer from './class/customer';
 import Room from "../src/class/room.js";
 import Booking from "../src/class/booking.js";
-import Manager from '../src/class/manager.js';
 import {
   getCustomerData,
   getBookingData,
@@ -73,6 +72,7 @@ function postBooking(data) {
   })
   .then(response => response.json())
   .then(data => {
+    formMessage.innerHTML = '';
     formMessage.innerHTML += `<br><p>${data.message}</p>`
   })
   .catch(err => console.log(err));
@@ -102,27 +102,19 @@ function updateData() {
 const homeView = document.querySelector('#home-view');
 const galleryView = document.querySelector('#gallery-view');
 const aboutView = document.querySelector('#about-view');
-const adminView = document.querySelector('#admin-view');
 const homeButton = document.querySelector('#home-button');
 const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const logoutButton = document.querySelector('#logout-button');
-const submitButton = document.querySelector('#submit-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
-const totalBookingsGrid = document.querySelector('#total-bookings-grid');
 const greeting = document.querySelector('#greeting');
 const reward = document.querySelector('#reward');
 const calendar = document.querySelector('#calendar');
-const adminCalendar = document.querySelector('#admin-calendar');
-const adminInfo = document.querySelector('#admin-info');
 const rS = document.querySelector('#rS');
 const s = document.querySelector('#s');
 const sR = document.querySelector('#sR');
 const jS = document.querySelector('#jS');
-const uName = document.querySelector('#u-name');
-const pWord = document.querySelector('#p-word');
-const loginError = document.querySelector('#login-error');
 const formMessage = document.querySelector('#form-message');
 
 // EVENT LISTENERS
@@ -133,6 +125,8 @@ aboutButton.addEventListener('click', showAbout);
 logoutButton.addEventListener('click', reloadPage);
 calendar.addEventListener('change', (e) => {
   e.preventDefault();
+  formMessage.innerHTML = '';
+  formMessage.innerHTML = `PLEASE SELECT A DATE TO VIEW ROOM AVAILABILITY`
   selectedDate = e.target.value.split('-').join('/')
   roomsByDate(currentBookings, currentRooms, selectedDate)
 });
@@ -140,15 +134,6 @@ rS.addEventListener('change', alterList);
 s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
-submitButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  loginUser(e)
-});
-adminCalendar.addEventListener('change', (e) => {
-  e.preventDefault();
-  selectedDate = e.target.value.split('-').join('/')
-  renderTodaysBookings(currentBookings, currentRooms, selectedDate)
-});
 
 // FUNCTIONS
 function loadUser() {
@@ -204,13 +189,11 @@ function renderBookings() {
       <h3 id="" class="info">${booking.date}</h3>
       <h3 id="" class="info">Room Number ${booking.roomNumber}</h3>
     </div>
-    <button id="${booking.roomNumber}" class="room-button info">View Room Details</button>
     <div>
       <h3 id="" class="info">Conf# ${booking.id}</h3>
     </div>
   </li>`)
   .join('');
-  const roomButton = document.querySelectorAll('.room-button');
 };
 
 function roomsByDate(books, roms, date) {
@@ -292,88 +275,6 @@ function alterList(event) {
   roomsByType(filter);
 };
 
-function loginUser(event) {
-  valid = false;
-  checkCredentials(event);
-  if(valid && currentUser.name !== 'manager') {
-    unlockNav();
-    showHome();
-    login.classList.add('hidden');
-  };
-  if(valid && currentUser.name === 'manager') {
-    homeView.classList.add('hidden');
-    renderTodaysBookings(currentBookings, currentRooms, '2022/11/15');
-    renderAdminMessage('2022-11-15');
-    showAdminPage();
-    login.classList.add('hidden');
-  };
-};
-
-function checkCredentials(event) {
-  if(uName.value.includes('customer') && pWord.value === 'overlook2021') {
-    const X = parseInt(uName.value.split('customer')[1]);
-    if(X < 1 || X > customersData.length) {
-      loginError.innerHTML = '';
-      loginError.innerHTML = `<p>Invalid Username or Password</p>`;
-    } else {
-      loginError.innerHTML = '';
-    const user = customersData.find(user => user.id === X);
-    currentUser = new Customer(user);
-    valid = true;
-    loadUser();
-    };
-  } else if(uName.value === 'manager' && pWord.value === 'overlook2021') {
-    loginError.innerHTML = '';
-    currentUser = new Manager();
-    valid = true;
-  }  else {
-    loginError.innerHTML = '';
-    loginError.innerHTML = `<p>Invalid Username or Password</p>`;
-  };
-};
-
-function unlockNav() {
-  homeButton.classList.remove('hidden');
-  galleryButton.classList.remove('hidden');
-  aboutButton.classList.remove('hidden');
-  logoutButton.classList.remove('hidden');
-};
-
 function reloadPage() {
   location.reload();
-};
-
-function showAdminPage() {
-  adminView.classList.remove('hidden');
-  logoutButton.classList.remove('hidden');
-};
-
-function renderAdminMessage(date) {
-  currentUser.todaysRevenue(currentBookings, currentRooms, date);
-  currentUser.percentOccupied(currentBookings, currentRooms, date);
-  adminInfo.innerHTML = '';
-  adminInfo.innerHTML = 
-  `<p>Please Select a Date to View Rooms</p>`
-}
-
-function renderTodaysBookings(books, rooms, date) {
-  const render = currentUser.availableRooms(books, rooms, date);
-  totalBookingsGrid.innerHTML = 
-    render.map(room => 
-      `<li class="room-card">
-          <div class="room-info">
-            <div>
-              <h3 id="" class="info">Room Number : ${room.number}</h3>
-              <h3 id="" class="info">Room Type : ${room.roomType}</h3>
-              <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
-            </div>
-            <div>
-              <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
-              <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
-              <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
-            </div>
-          </div>
-          <button id="book-button" class="room-button info">Book Room</button>
-      </li>`)
-  .join(''); 
 };
