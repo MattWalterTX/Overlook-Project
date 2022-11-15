@@ -8,8 +8,10 @@ describe("Room", () => {
   beforeEach(() => {
     customer1 = new Customer({ "id": 1, "name": "Jack Torrence" });
     customer2 = new Customer({ "id": 2, "name": "Danny Torrence" });
-    room1 = new Room({ "number": 1, "roomType": "residential suite", "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
-    room2 = new Room( { "number": 2, "roomType": "suite", "bidet": false, "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
+    room1 = new Room({ "number": 1, "roomType": "residential suite",
+      "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
+    room2 = new Room( { "number": 2, "roomType": "suite", "bidet": false,
+      "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
   });
 
   it('should create an instance of Room', () => {

@@ -11,9 +11,12 @@ describe("Manager", () => {
   beforeEach(() => {
     customer1 = new Customer({"id": 1, "name": "Jack Torrence"});
     customer2 = new Customer({"id": 2, "name": "Danny Torrence"});
-    room1 = new Room({ "number": 1, "roomType": "residential suite", "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
-    room2 = new Room({ "number": 2, "roomType": "suite", "bidet": false, "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
-    room3 = new Room({ "number": 3, "roomType": "single room", "bidet": false, "bedSize": "king", "numBeds": 1, "costPerNight": 491.14 });
+    room1 = new Room({ "number": 1, "roomType": "residential suite",
+      "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
+    room2 = new Room({ "number": 2, "roomType": "suite", "bidet": false,
+      "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
+    room3 = new Room({ "number": 3, "roomType": "single room", "bidet": false,
+      "bedSize": "king", "numBeds": 1, "costPerNight": 491.14 });
     roomData = [room1, room2, room3];
     manager = new Manager;
     });

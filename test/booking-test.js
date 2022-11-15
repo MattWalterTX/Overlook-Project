@@ -9,10 +9,14 @@ describe("Room", () => {
   beforeEach(() => {
     customer1 = new Customer({ "id": 1, "name": "Jack Torrence" });
     customer2 = new Customer({ "id": 2, "name": "Danny Torrence" });
-    room1 = new Room({ "number": 15, "roomType": "residential suite", "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
-    room2 = new Room( { "number": 24, "roomType": "suite", "bidet": false, "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
-    book1 = new Booking({ "id": "5fwrgu4i7k55hl6sz", "userID": 1, "date": "2022/04/22", "roomNumber": 15, });
-    book2 = new Booking({ "id": "5fwrgu4i7k55hl6t5", "userID": 2, "date": "2022/01/24", "roomNumber": 24, });
+    room1 = new Room({ "number": 15, "roomType": "residential suite",
+      "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
+    room2 = new Room( { "number": 24, "roomType": "suite", "bidet": false,
+      "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
+    book1 = new Booking({ "id": "5fwrgu4i7k55hl6sz", "userID": 1,
+      "date": "2022/04/22", "roomNumber": 15, });
+    book2 = new Booking({ "id": "5fwrgu4i7k55hl6t5", "userID": 2,
+      "date": "2022/01/24", "roomNumber": 24, });
   });
 
   it('should create an instance of Booking', () => {
