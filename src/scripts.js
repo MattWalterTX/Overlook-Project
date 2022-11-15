@@ -14,7 +14,7 @@ import './images/suite-bathroom.png';
 import Customer from './class/customer';
 import Room from "../src/class/room.js";
 import Booking from "../src/class/booking.js";
-import Manager from '../src/class/manager.js'
+import Manager from '../src/class/manager.js';
 import {
   getCustomerData,
   getBookingData,
@@ -107,8 +107,6 @@ const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const logoutButton = document.querySelector('#logout-button');
 const submitButton = document.querySelector('#submit-button');
-// const bookButton = document.querySelectorAll('#book-button');
-// const roomButton = document.querySelector('#room-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const totalBookingsGrid = document.querySelector('#total-bookings-grid');
@@ -125,16 +123,12 @@ const uName = document.querySelector('#u-name');
 const pWord = document.querySelector('#p-word');
 const loginError = document.querySelector('#login-error');
 
-
-
-
 // EVENT LISTENERS
 window.addEventListener('load', instantiateData);
 homeButton.addEventListener('click', showHome);
 galleryButton.addEventListener('click', showGallery);
 aboutButton.addEventListener('click', showAbout);
-logoutButton.addEventListener('click', reloadPage)
-// roomButton.addEventListener('click', showRoomDetails);
+logoutButton.addEventListener('click', reloadPage);
 calendar.addEventListener('change', (e) => {
   e.preventDefault();
   selectedDate = e.target.value.split('-').join('/')
@@ -156,7 +150,7 @@ adminCalendar.addEventListener('change', (e) => {
 
 // FUNCTIONS
 function loadUser() {
-  currentUser.myBookings(currentBookings)
+  currentUser.myBookings(currentBookings);
   loadGreeting();
   loadRewards();
   renderBookings();
@@ -184,13 +178,18 @@ function showAbout() {
 };
 
 function loadGreeting() {
+  greeting.innerHTML = '';
   greeting.innerHTML = `Welcome Back ${currentUser.name}!`;
 };
 
 function loadRewards() {
+  reward.innerHTML = '';
   if(currentUser.totalCosts(currentRooms) < 10000) {
     reward.innerHTML = `<p>You have spent $${currentUser.totalCosts(currentRooms)} with this year. 
       <br>Spend over $10,000.00 with us for a complimentary 5 night stay!</p>`;
+  } else {
+    reward.innerHTML = `<p>You have spent $${currentUser.totalCosts(currentRooms)} with this year. 
+      <br>You have spent over $10,000.00 with us! Please call in and speak with Mr. Dick Halloran to set up your complimentary 5 night stay!</p>`;
   };
 };
 
@@ -203,17 +202,15 @@ function renderBookings() {
       <h3 id="" class="info">${booking.date}</h3>
       <h3 id="" class="info">Room Number ${booking.roomNumber}</h3>
     </div>
-    <button id="${booking.id}" class="room-button info">View Room Details</button>
+    <button id="${booking.roomNumber}" class="room-button info">View Room Details</button>
     <div>
       <h3 id="" class="info">Conf# ${booking.id}</h3>
     </div>
   </li>`)
   .join('');
+  const roomButton = document.querySelectorAll('.room-button');
+  roomButton.forEach(button => button.addEventListener('click', displayRoomInfo));
 };
-
-function displayRoomInfo(roomNumber) {
-
-}
 
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
@@ -236,12 +233,8 @@ function roomsByDate(books, roms, date) {
         <button id="${room.number}" class="room-button book-button info" >Book Room</button>
     </section>`;
     availableGrid.innerHTML += render;
-    // bookButton.addEventListener('click', loadUser)
     const bookButton = document.querySelectorAll('.book-button');
-    bookButton.forEach(button => button.addEventListener('click', bookRoom))
-    // function handleClick(event) {
-    //   console.log('fuckfuckfuck')
-    // }));
+    bookButton.forEach(button => button.addEventListener('click', bookRoom));
   });
   } else {
     availableGrid.innerHTML = '';
@@ -252,75 +245,67 @@ function roomsByDate(books, roms, date) {
           Let them know your first choice of stay was already booked and our Maître d'Hôtel will off you his personal apologies as well as a verbal confirmation for your stay. 
         <br>This confirmation will also provide a comp of your party's dinner on the night of your arrival.</span>
         <p>Compliments of Dick Hallorann</p>
-      </div>`
+      </div>`;
   };
-  refreshRooms()
+  refreshRooms();
 };
 
 function roomsByType(data) {
   if(availableGrid.innerHTML === '' || currentUser.name === 'manager') {
-    availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`
+    availableGrid.innerHTML = `<p>Please Select a Date to View Rooms</p>`;
   } else {
   const filterSelector = today.filter(room => room.roomType === data);
   availableGrid.innerHTML = 
-  filterSelector.map(room => 
-  `<li class="room-card">
-      <div class="room-info">
-        <div>
-          <h3 id="" class="info">Room Number : ${room.number}</h3>
-          <h3 id="" class="info">Room Type : ${room.roomType}</h3>
-          <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
-        </div>
-        <div>
-          <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
-          <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
-          <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
-        </div>
-      </div>
-      <button id="book-button" class="room-button info">Book Room</button>
-  </li>`)
-  .join(''); }
+    filterSelector.map(room => 
+      `<li class="room-card">
+          <div class="room-info">
+            <div>
+              <h3 id="" class="info">Room Number : ${room.number}</h3>
+              <h3 id="" class="info">Room Type : ${room.roomType}</h3>
+              <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
+            </div>
+            <div>
+              <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
+              <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
+              <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
+            </div>
+          </div>
+            <button id="${room.number}" class="room-button book-button info" >Book Room</button>
+      </li>`)
+  .join(''); 
+  };
+  const bookButton = document.querySelectorAll('.book-button');
+  bookButton.forEach(button => button.addEventListener('click', bookRoom));
+  refreshRooms();
 };
 
 function bookRoom(event) {
   const newRoomNum = event.target.id;
-  const newObj = {
-    userID: currentUser.id,
-    date: selectedDate,
-    roomNumber: event.target.id
-  };
-  console.log(newObj)
   postBooking(newRoomNum);
-  // currentUser.
   updateData();
-  // loadUser()
-  // console.log(event)
-  // console.log('userid: ', currentUser.id)
-  // console.log('selectedDate: ', selectedDate)
-  // console.log('event id: ', event.target.id)
-}
+};
 
 function alterList(event) {
-  event.preventDefault()
+  event.preventDefault();
   const filter = event.target.value;
   roomsByType(filter);
 };
 
 function loginUser(event) {
-  valid = false
+  valid = false;
   checkCredentials(event);
   if(valid && currentUser.name !== 'manager') {
     unlockNav();
     showHome();
     login.classList.add('hidden');
-  }
+  };
   if(valid && currentUser.name === 'manager') {
     homeView.classList.add('hidden');
-    renderTodaysBookings(currentBookings, currentRooms, '2022/11/15')
-    renderAdminMessage('2022-11-15')
+    renderTodaysBookings(currentBookings, currentRooms, '2022/11/15');
+    renderAdminMessage('2022-11-15');
     showAdminPage();
     login.classList.add('hidden');
-  } 
+  };
 };
 
 function checkCredentials(event) {
@@ -368,29 +353,26 @@ function renderAdminMessage(date) {
   adminInfo.innerHTML = '';
   adminInfo.innerHTML = 
   `<p>Please Select a Date to View Rooms</p>`
-  
-  
 }
 
 function renderTodaysBookings(books, rooms, date) {
-  const render = currentUser.availableRooms(books, rooms, date)
+  const render = currentUser.availableRooms(books, rooms, date);
   totalBookingsGrid.innerHTML = 
-  render.map(room => 
-  `<li class="room-card">
-      <div class="room-info">
-        <div>
-          <h3 id="" class="info">Room Number : ${room.number}</h3>
-          <h3 id="" class="info">Room Type : ${room.roomType}</h3>
-          <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
-        </div>
-        <div>
-          <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
-          <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
-          <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
-        </div>
-      </div>
-      <button id="book-button" class="room-button info">Book Room</button>
-  </li>`)
+    render.map(room => 
+      `<li class="room-card">
+          <div class="room-info">
+            <div>
+              <h3 id="" class="info">Room Number : ${room.number}</h3>
+              <h3 id="" class="info">Room Type : ${room.roomType}</h3>
+              <h3 id="" class="info">Bed Type : ${room.bedSize}</h3>
+            </div>
+            <div>
+              <h3 id="" class="info">Bed Count : ${room.numBeds}</h3>
+              <h3 id="" class="info">Has Bidet : ${room.bidet}</h3>
+              <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
+            </div>
+          </div>
+          <button id="book-button" class="room-button info">Book Room</button>
+      </li>`)
   .join(''); 
-}
-
+};
