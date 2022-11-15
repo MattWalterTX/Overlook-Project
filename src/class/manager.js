@@ -27,7 +27,7 @@ class Manager {
     const total = matches.reduce((acc, curr) => {
       acc += curr.costPerNight
       return acc
-    }, 0)
+    }, 0);
     return total
   };
 

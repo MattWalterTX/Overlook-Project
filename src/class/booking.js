@@ -4,7 +4,7 @@ class Booking {
     this.userID = details.userID;
     this.date = details.date;
     this.roomNumber = details.roomNumber;
-  }
-}
+  };
+};
 
 export default Booking

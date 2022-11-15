@@ -1,15 +1,12 @@
-/* Color Pallette
- #335c67, #fff3b0, #e09f3e, #9e2a2b, #540b0e*/
- 
  * {
   margin: 0px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
  }
 
 .text-general {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
  }
 
@@ -18,15 +15,15 @@ body {
 }
 
 header {
-  display: flex;
-  justify-content: space-between;
-  background: radial-gradient(circle, #fff3b0, #e09f3e);
   align-items: center;
+  display: flex;
+  background: radial-gradient(circle, #fff3b0, #e09f3e);
   background-color: #fff3b0;
+  border: 10px double #9e2a2b;
+  justify-content: space-between;
+  margin-bottom: 2vh;
   padding-top: 2vh;
   padding-bottom: 2vh;
-  margin-bottom: 2vh;
-  border: 10px double #9e2a2b;
 }
 
 main {
@@ -35,40 +32,37 @@ main {
 
 .turing-logo {
   height: 4vw;
-  width: 4vw;
   margin-right: 1.3vw;
+  width: 4vw;
 }
 
 .title-area {
+  align-items: center;
   display: flex;
   justify-content: space-around;
-  align-items: center;
   margin-left: 5vw;
 }
 
 nav {
   display: flex;
-  justify-content: space-around;
-  width: 40%;
   height: 2.5vw;
+  justify-content: space-around;
   margin-right: 5vw;
+  width: 40%;
 }
 
 .top-button {
-  border: none;
-  font-style: italic;
-  font-size: 2vw;
   border: 2px;
-    border-style: solid;
-    border-radius: 1vw;
-    border-color: #E99B3D;
-    font-style: italic;
-    font-size: 1.1vw;
+  border-color: #E99B3D;
+  border-radius: 1vw;
+  border-style: solid;
+  font-style: italic;
+  font-size: 1.1vw;
 }
 
 .top-button:hover {
-  cursor: pointer;
   color: #E99B3D;
+  cursor: pointer;
   text-decoration: underline;
 }
 
@@ -78,27 +72,27 @@ nav {
 
 p {
   align-content: center;
-  font-size: 30px;
   color: #353431;
-  text-align: center;
-  font-weight: bolder;
+  font-size: 30px;
   font-style: italic;
+  font-weight: bolder;
+  text-align: center;
 }
 
 span {
     align-content: center;
-    font-size: 18px;
     color: #335c67;
-    text-align: center;
-    font-weight: bolder;
+    font-size: 18px;
     font-style: italic;
+    font-weight: bolder;
+    text-align: center;
 }
 
 .login-form, .avail-form {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   padding:1.5%;
 }
 
@@ -109,43 +103,40 @@ span {
 
 .message {
   background-color: #E99B3D;
-  padding: 1em;
   filter: brightness(80%);
   margin: 1em;
+  padding: 1em;
 }
 
 .card-grid {
-  display: flex;
-  justify-content: center;
   align-content: flex-start;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* color: transparent; */
-  padding-left: 0;
   height: inherit;
-  /* height: 100vw; */
+  justify-content: center;
+  padding-left: 0;
   z-index: -1;
 }
 
 .room-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  list-style: none;
-  flex-basis: 30.1%;
-  height: inherit;
-  /* height: 10vh; */
-  margin: 1.5vw;
-  font-size: 1vw;
-  color: #353431;
-  text-align: center;
-  max-width: inherit;
-  border-style: solid;
   border-color: #540b0e;
-  border-width: .5vw;
   border-radius: 1vw;
-  pointer-events: none;
+  border-style: solid;
+  border-width: .5vw;
+  color: #353431;
+  display: flex;
+  flex-basis: 30.1%;
+  flex-direction: column;
+  font-size: 1vw;
+  height: inherit;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 1.5vw;
+  max-width: inherit;
+  /* pointer-events: none; */
+  text-align: center;
   z-index: 1;
 }
 
@@ -155,49 +146,53 @@ span {
 }
 
 .booking-card {
+  align-items: center;
+  border-color: #540b0e;
+  border-radius: 1vw;
+  border-style: solid;
+  border-width: .5vw;
+  color: #353431;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  list-style: none;
   flex-basis: 30.1%;
-  height: inherit;
-  margin: 1.5vw;
   font-size: 12px;
-  color: #353431;
+  height: inherit;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 1.5vw;
+  /* pointer-events: none; */
   text-align: center;
   width: inherit;
-  border-style: solid;
-  border-color: #540b0e;
-  border-width: .5vw;
-  border-radius: 1vw;
-  pointer-events: none;
 }
 
 .info {
   padding: 2px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .room-button  {
-  border: 2px;
   background-color: #e09f3e;
-  border-style: solid;
-  border-radius: 1vw;
+  border: 2px;
   border-color: #9e2a2b;
+  border-radius: 1vw;
+  border-style: solid;
   font-style: italic;
   font-size: 12px;
 }
 
 .room-button:hover  {
-  cursor: pointer;
-  color: #E99B3D;
   border-color: #353431;
+  cursor: pointer;
+  color: #335c67;
 }
 
 .gallery-image-container {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .small-pics {
@@ -205,28 +200,18 @@ span {
   justify-content: center;
 }
 
-/* .gallery-view {
-
-}
-
-.about-view {
-  
-} */
-
 .large-gallery-pic {
   height: 60vh;
-  width: 90vw;
-  /* max-height: 420px;
-  max-width: 850px; */
   padding: 2%;
+  width: 90vw;
 }
 
 .gallery-pic {
-height: 30VH;
-width: 45vw;
-max-height: 175px;
-max-width: 325px;
-padding: 2%;
+  height: 30VH;
+  max-height: 175px;
+  max-width: 325px;
+  padding: 2%;
+  width: 45vw;
 }
 
 .staff-pic {

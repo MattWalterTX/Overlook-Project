@@ -3,14 +3,14 @@ import Customer from "../src/class/customer.js";
 import Room from "../src/class/room.js";
 
 describe("Room", () => {
-  let customer1, customer2, room1, room2, book1, book2;
+  let customer1, customer2, room1, room2;
 
   beforeEach(() => {
     customer1 = new Customer({ "id": 1, "name": "Jack Torrence" });
     customer2 = new Customer({ "id": 2, "name": "Danny Torrence" });
     room1 = new Room({ "number": 1, "roomType": "residential suite", "bidet": true, "bedSize": "queen", "numBeds": 1, "costPerNight": 358.4 });
     room2 = new Room( { "number": 2, "roomType": "suite", "bidet": false, "bedSize": "full", "numBeds": 2, "costPerNight": 477.38 });
-  })
+  });
 
   it('should create an instance of Room', () => {
     expect(room1).to.be.an.instanceOf(Room);

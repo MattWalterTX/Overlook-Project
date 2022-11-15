@@ -5,8 +5,8 @@ class Customer {
     this.bookings = [];
   };
 
-  myBookings(data) {
-    this.bookings = data.filter(booking => booking.userID === this.id)
+  myBookings(bookingData) {
+    this.bookings = bookingData.filter(booking => booking.userID === this.id);
   };
   
   totalCosts(roomData) {
@@ -32,16 +32,7 @@ class Customer {
       const x = available.splice(i, 1);
       return available
     });
-    //   console.log('check: ', check)
-    // console.log('compare: ', compare)
-    // console.log('remove: ', remove)
-    // console.log('available: ', available)
-
-    // if(check.length === books.length) {
-    //   return "There are no room available on this date. We apologize for the inconvenience - Please enter a new date"
-    // } else {
       return available
-    // };
   };
   
 };
