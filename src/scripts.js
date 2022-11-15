@@ -59,6 +59,42 @@ function refreshRooms() {
     });
 };
 
+function postBooking(data) {
+  fetch('http://localhost:3001/api/v1/bookings', {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: currentUser.id,
+      date: selectedDate,
+      roomNumber: parseInt(data)
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.log(err));
+};
+
+function updateData() {
+  Promise.all([getCustomerData(), getBookingData(), getRoomData()]).then(
+    (data) => {
+      customersData = data[0].customers;
+      bookingsData = data[1].bookings;
+      roomsData = data[2].rooms;
+      currentBookings = bookingsData.map(booking => {
+        const newBooking = new Booking(booking);
+        return newBooking
+      });
+      currentRooms = roomsData.map(room => {
+        const newRoom = new Room(room);
+        return newRoom
+      });
+      currentUser.totalCosts(roomsData)
+      loadUser();
+      availableGrid.innerHTML = '';
+  });
+};
 
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
@@ -71,7 +107,7 @@ const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const logoutButton = document.querySelector('#logout-button');
 const submitButton = document.querySelector('#submit-button');
-const bookButton = document.querySelectorAll('#book-button');
+// const bookButton = document.querySelectorAll('#book-button');
 // const roomButton = document.querySelector('#room-button');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
@@ -112,29 +148,11 @@ submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   loginUser(e)
 });
-// bookButton.addEventListener('click', bookRoom)
-
-function bookRoom(event) {
-  if(event.currentTarget) {console.log('fuckmerunning')}
-    // { "userID": 48, "date": "2019/09/23", "roomNumber": 4 }
- else {console.log('stillbroken')}
-};
-// bookButton.forEach(button => {button.addEventListener('click', bookRoom)})
-
-
 adminCalendar.addEventListener('change', (e) => {
   e.preventDefault();
   selectedDate = e.target.value.split('-').join('/')
   renderTodaysBookings(currentBookings, currentRooms, selectedDate)
 });
-
-
-
-
-
-
-
-
 
 // FUNCTIONS
 function loadUser() {
@@ -145,15 +163,13 @@ function loadUser() {
 };
 
 function toggleHidden(view) {
-  // loginView
   homeView.classList.add('hidden');
   galleryView.classList.add('hidden');
   aboutView.classList.add('hidden');
   if(view !== 'admin') {
-  
   view.classList.remove('hidden')
-  }
-}
+  };
+};
 
 function showHome(event) {
   toggleHidden(homeView);
@@ -217,14 +233,15 @@ function roomsByDate(books, roms, date) {
             <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
           </div>
         </div>
-        <button id="book-button" class="room-button info" >Book Room</button>
+        <button id="${room.number}" class="room-button book-button info" >Book Room</button>
     </section>`;
     availableGrid.innerHTML += render;
     // bookButton.addEventListener('click', loadUser)
-    const bookButton = document.querySelectorAll('#book-button');
-    bookButton.forEach(button => button.addEventListener('click', function handleClick(event) {
-      console.log('fuckfuckfuck')
-    }));
+    const bookButton = document.querySelectorAll('.book-button');
+    bookButton.forEach(button => button.addEventListener('click', bookRoom))
+    // function handleClick(event) {
+    //   console.log('fuckfuckfuck')
+    // }));
   });
   } else {
     availableGrid.innerHTML = '';
@@ -264,6 +281,24 @@ function roomsByType(data) {
   </li>`)
   .join(''); }
 };
+
+function bookRoom(event) {
+  const newRoomNum = event.target.id;
+  const newObj = {
+    userID: currentUser.id,
+    date: selectedDate,
+    roomNumber: event.target.id
+  };
+  console.log(newObj)
+  postBooking(newRoomNum);
+  // currentUser.
+  updateData();
+  // loadUser()
+  // console.log(event)
+  // console.log('userid: ', currentUser.id)
+  // console.log('selectedDate: ', selectedDate)
+  // console.log('event id: ', event.target.id)
+}
 
 function alterList(event) {
   event.preventDefault()
