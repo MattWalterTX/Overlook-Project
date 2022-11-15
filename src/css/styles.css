@@ -1,6 +1,6 @@
  * {
   margin: 0px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
  }
 
 .text-general {
@@ -80,12 +80,12 @@ p {
 }
 
 span {
-    align-content: center;
-    color: #335c67;
-    font-size: 18px;
-    font-style: italic;
-    font-weight: bolder;
-    text-align: center;
+  align-content: center;
+  color: #335c67;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: bolder;
+  text-align: center;
 }
 
 .login-form, .avail-form {
@@ -135,7 +135,6 @@ span {
   list-style: none;
   margin: 1.5vw;
   max-width: inherit;
-  /* pointer-events: none; */
   text-align: center;
   z-index: 1;
 }
@@ -160,7 +159,6 @@ span {
   justify-content: flex-start;
   list-style: none;
   margin: 1.5vw;
-  /* pointer-events: none; */
   text-align: center;
   width: inherit;
 }
