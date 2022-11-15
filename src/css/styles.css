@@ -135,7 +135,7 @@ span {
   list-style: none;
   margin: 1.5vw;
   max-width: inherit;
-  pointer-events: none;
+  /* pointer-events: none; */
   text-align: center;
   z-index: 1;
 }
@@ -160,13 +160,17 @@ span {
   justify-content: flex-start;
   list-style: none;
   margin: 1.5vw;
-  pointer-events: none;
+  /* pointer-events: none; */
   text-align: center;
   width: inherit;
 }
 
 .info {
   padding: 2px;
+}
+
+button {
+  cursor: pointer;
 }
 
 .room-button  {
@@ -182,7 +186,7 @@ span {
 .room-button:hover  {
   border-color: #353431;
   cursor: pointer;
-  color: #E99B3D;
+  color: #335c67;
 }
 
 .gallery-image-container {

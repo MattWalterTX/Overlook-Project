@@ -51,7 +51,6 @@ function instantiateData() {
 function refreshRooms() {
   getRoomData()
     .then(data => {
-      console.log(data)
       roomsData = data.rooms;
       currentRooms = roomsData.map(room => {
         const newRoom = new Room(room);
@@ -59,6 +58,7 @@ function refreshRooms() {
       });
     });
 };
+
 
 // QUERY SELECTORS
 const homeView = document.querySelector('#home-view');
@@ -71,8 +71,8 @@ const galleryButton = document.querySelector('#gallery-button');
 const aboutButton = document.querySelector('#about-button');
 const logoutButton = document.querySelector('#logout-button');
 const submitButton = document.querySelector('#submit-button');
+const bookButton = document.querySelectorAll('#book-button');
 // const roomButton = document.querySelector('#room-button');
-const bookButton = document.querySelector('#book-button.room-button.info');
 const bookingsGrid = document.querySelector('#bookings-grid');
 const availableGrid = document.querySelector('#available-grid');
 const totalBookingsGrid = document.querySelector('#total-bookings-grid');
@@ -108,20 +108,18 @@ rS.addEventListener('change', alterList);
 s.addEventListener('change', alterList);
 sR.addEventListener('change', alterList);
 jS.addEventListener('change', alterList);
-// bookButton.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   console.log('selected room: ', e)
-//   const selectedRoom = e.target;
-//   bookRoom(selectedRoom)
-// });
 submitButton.addEventListener('click', (e) => {
   e.preventDefault();
   loginUser(e)
 });
-bookButton.addEventListener('click', doTheThing);
+// bookButton.addEventListener('click', bookRoom)
 
-
-
+function bookRoom(event) {
+  if(event.currentTarget) {console.log('fuckmerunning')}
+    // { "userID": 48, "date": "2019/09/23", "roomNumber": 4 }
+ else {console.log('stillbroken')}
+};
+// bookButton.forEach(button => {button.addEventListener('click', bookRoom)})
 
 
 adminCalendar.addEventListener('change', (e) => {
@@ -177,7 +175,7 @@ function loadRewards() {
   if(currentUser.totalCosts(currentRooms) < 10000) {
     reward.innerHTML = `<p>You have spent $${currentUser.totalCosts(currentRooms)} with this year. 
       <br>Spend over $10,000.00 with us for a complimentary 5 night stay!</p>`;
-  }
+  };
 };
 
 function renderBookings() {
@@ -197,19 +195,16 @@ function renderBookings() {
   .join('');
 };
 
-// function showRoomDetails() {
-  
-// }
+function displayRoomInfo(roomNumber) {
+
+}
 
 function roomsByDate(books, roms, date) {
   today = currentUser.checkRooms(books, roms, date);
-  const todaysRooms = today;
-  console.log('today: ', today)
   if(today.length > 0 || typeof today === 'string') {
     availableGrid.innerHTML = '';
-    availableGrid.innerHTML = 
-    today.map(room => 
-    `<li class="room-card">
+    let renders = today.forEach(room => {
+    let render = `<section class="room-card">
         <div class="room-info">
           <div>
             <h3 id="" class="info">Room Number : ${room.number}</h3>
@@ -222,15 +217,20 @@ function roomsByDate(books, roms, date) {
             <h3 id="" class="info">Nightly Cost : ${room.costPerNight}</h3>
           </div>
         </div>
-        <button id="book-button" class="room-button info">Book Room</button>
-    </li>`)
-  .join('');
-  bookButton.addEventListener('click', doTheThing);
+        <button id="book-button" class="room-button info" >Book Room</button>
+    </section>`;
+    availableGrid.innerHTML += render;
+    // bookButton.addEventListener('click', loadUser)
+    const bookButton = document.querySelectorAll('#book-button');
+    bookButton.forEach(button => button.addEventListener('click', function handleClick(event) {
+      console.log('fuckfuckfuck')
+    }));
+  });
   } else {
     availableGrid.innerHTML = '';
     availableGrid.innerHTML = 
       `<div class="message">
-        <p>There are no availabilties  on this date - Please enter a new date</p>
+        <p>There are no availabilities on this date - Please enter a new date</p>
         <span> We apologize for the inconvenience! When you do find the room of your dreams, please call in to our front desk! 
           Let them know your first choice of stay was already booked and our Maître d'Hôtel will off you his personal apologies as well as a verbal confirmation for your stay. 
         <br>This confirmation will also provide a comp of your party's dinner on the night of your arrival.</span>
@@ -239,14 +239,6 @@ function roomsByDate(books, roms, date) {
   };
   refreshRooms()
 };
-
-function doTheThing(event) {
-  console.log('the Thing')
-}
-
-// function bookRoom(room) {
-//   console.log('room: ', room)
-// }
 
 function roomsByType(data) {
   if(availableGrid.innerHTML === '' || currentUser.name === 'manager') {
